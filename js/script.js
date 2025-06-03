@@ -1,25 +1,23 @@
 import express from 'express';
 import fs from 'fs';
-const app = express();
+
 const PORT = 3000;
 
+const app = express();
 
-
-app.get('/juegos', (req, res) => {
+app.get('/catalogo', (req, res) => {
   try {
     const data = fs.readFileSync('db.json', 'utf-8');
-    const juegos = JSON.parse(data);
-    res.json(juegos);
+    const productos = JSON.parse(data);
+    res.json(productos);
   } catch (error) {
     res.status(500).send('Error leyendo el archivo JSON');
   }
-  
-  
+
 });
 
 
-
-//Inicializacion del servidor
+///Inicializacion del servidor
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
