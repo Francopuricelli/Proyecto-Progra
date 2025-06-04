@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Insert Coin</title>
-  <link rel="icon" href="../assets/img/InsertCoin Light.png" />
+  <link rel="icon" href="/assets/img/InsertCoin Light.png" />
 
 
   
@@ -14,13 +14,13 @@
    
     @font-face {
       font-family: 'Clash Display';
-      src: url('../assets/fonts/ClashDisplay-Variable.ttf') format('truetype');
+      src: url('/assets/fonts/ClashDisplay-Variable.ttf') format('truetype');
       font-weight: 100 900;
     }
 
     @font-face {
       font-family: 'Nippo';
-      src: url('../assets/fonts/Nippo-Variable.ttf') format('truetype');
+      src: url('/assets/fonts/Nippo-Variable.ttf') format('truetype');
       font-weight: 100 900;
     }
     :root {
@@ -137,7 +137,7 @@
 
   <nav class="navbar navbar-expand-lg">
     <a class="navbar-brand" href="#">
-      <img src="../assets/img/InsertCoin Light.png" alt="Insert Coin Logo">
+      <img src="/assets/img/InsertCoin Light.png" alt="Insert Coin Logo">
     </a>
     <div class="collapse navbar-collapse justify-content-end">
       <ul class="navbar-nav align-items-center">
@@ -165,19 +165,19 @@
         <div id="carouselPrincipal" class="carousel slide h-100" data-bs-ride="carousel">
           <div class="carousel-inner h-100">
             <div class="carousel-item active">
-              <img src="../assets/img/bossfight.png" class="d-block w-100" alt="Juego 1">
+              <img src="/assets/img/bossfight.png" class="d-block w-100" alt="Juego 1">
             </div>
             <div class="carousel-item">
-              <img src="../assets/img/re4gameplay.png" class="d-block w-100" alt="Juego 2">
+              <img src="/assets/img/re4gameplay.png" class="d-block w-100" alt="Juego 2">
             </div>
             <div class="carousel-item">
-              <img src="../assets/img/rdr2.png" class="d-block w-100" alt="Juego 4">
+              <img src="/assets/img/rdr2.png" class="d-block w-100" alt="Juego 4">
             </div>
             <div class="carousel-item">
-              <img src="../assets/img/got.png" class="d-block w-100" alt="Juego 5">
+              <img src="/assets/img/got.png" class="d-block w-100" alt="Juego 5">
             </div>
             <div class="carousel-item">
-              <img src="../assets/img/ea-sports-fc-25-4243995.png" class="d-block w-100" alt="Juego 6">
+              <img src="/assets/img/ea-sports-fc-25-4243995.png" class="d-block w-100" alt="Juego 6">
             </div>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselPrincipal" data-bs-slide="prev">
@@ -197,10 +197,11 @@
 
  
   <section id="juegos">
-    <p>dsp hago el catalogo</p>
+    <div id="productCards"></div>
   </section>
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="catalogo.js"></script>
 </body>
 </html>
