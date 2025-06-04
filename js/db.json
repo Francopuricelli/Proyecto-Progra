@@ -10,7 +10,7 @@
     "stock": 50,
     "lanzamiento": "2015-05-18",
     "idioma": ["Español", "Inglés"],
-    "imagen_url": "img/thewitcher3.png"
+    "imagen_url": "../assets/img/thewitcher3.png"
   },
   {
     "id": "002",
@@ -23,7 +23,7 @@
     "stock": 20,
     "lanzamiento": "2020-12-10",
     "idioma": ["Español", "Inglés"],
-    "imagen_url": "img/cyberpunk2077.png"
+    "imagen_url": "../assets/img/cyberpunk2077.png"
 
   },
   {
@@ -37,7 +37,7 @@
     "stock": 35,
     "lanzamiento": "2022-02-25",
     "idioma": ["Español", "Inglés"],
-    "imagen_url": "img/eldenring.png"
+    "imagen_url": "../assets/img/eldenring.png"
   },
   {
     "id": "004",
@@ -50,7 +50,7 @@
     "stock": 60,
     "lanzamiento": "2023-09-29",
     "idioma": ["Español", "Inglés"],
-    "imagen_url": "img/fc25.png"
+    "imagen_url": "../assets/img/fc25.png"
   },
   {
     "id": "005",
@@ -63,7 +63,7 @@
     "stock": 40,
     "lanzamiento": "2022-11-09",
     "idioma": ["Español", "Inglés"],
-    "imagen_url": "img/gowr.png"
+    "imagen_url": "../assets/img/gowr.png"
   },
   {
     "id": "006",
@@ -76,7 +76,7 @@
     "stock": 70,
     "lanzamiento": "2017-04-28",
     "idioma": ["Español", "Inglés"],
-    "imagen_url":"img/mariokart8.png"
+    "imagen_url":"../assets/img/mariokart8.png"
   },
   {
     "id": "007",
@@ -89,7 +89,7 @@
     "stock": 45,
     "lanzamiento": "2023-03-24",
     "idioma": ["Español", "Inglés"],
-    "imagen_url": "img/Resident_Evil_4_Remake-559091650-large.png"
+    "imagen_url": "../assets/img/Resident_Evil_4_Remake-559091650-large.png"
   },
   {
     "id": "008",
@@ -102,7 +102,7 @@
     "stock": 50,
     "lanzamiento": "2023-02-10",
     "idioma": ["Español", "Inglés"],
-    "imagen_url": "img/Hogwarts Legacy.png"
+    "imagen_url": "../assets/img/Hogwarts Legacy.png"
   },
   {
     "id": "009",
@@ -115,7 +115,7 @@
     "stock": 80,
     "lanzamiento": "2018-10-26",
     "idioma": ["Español", "Inglés"],
-    "imagen_url": "img/red_dead_3_nombre_temporal_-4030936.png"
+    "imagen_url": "../assets/img/red_dead_3__nombre_temporal_-4030936.png"
   },
   {
     "id": "010",
@@ -128,7 +128,7 @@
     "stock": 35,
     "lanzamiento": "2020-11-10",
     "idioma": ["Español", "Inglés"],
-    "imagen_url": "img/AC_Valhalla_cover.png"
+    "imagen_url": "../assets/img/AC_Valhalla_cover.png"
   },
   {
     "id": "011",
@@ -140,7 +140,7 @@
     "desarrollador": "CD Projekt Red",
     "stock": 100,
     "lanzamiento": "2016-05-31",
-    "imagen_url": "img/bloodandwine.png"
+    "imagen_url": "../assets/img/bloodandwine.png"
   },
   {
     "id": "012",
@@ -152,7 +152,7 @@
     "desarrollador": "CD Projekt Red",
     "stock": 80,
     "lanzamiento": "2023-09-26",
-    "imagen_url": "img/phantomliberty.png"
+    "imagen_url": "../assets/img/phantomliberty.png"
   },
   {
     "id": "013",
@@ -164,7 +164,7 @@
     "desarrollador": "FromSoftware",
     "stock": 120,
     "lanzamiento": "2024-06-21",
-    "imagen_url": "img/shadowoftree.png"
+    "imagen_url": "../assets/img/shadowoferdtree.png"
   },
   {
     "id": "014",
@@ -176,7 +176,7 @@
     "desarrollador": "EA Sports",
     "stock": 999,
     "lanzamiento": "2023-10-01",
-    "imagen_url": "img/EA SPORTS 25 - Ultimate Team Points Pack.png"
+    "imagen_url": "../assets/img/EA SPORTS 25 - Ultimate Team Points Pack.png"
   },
   {
     "id": "015",
@@ -188,7 +188,7 @@
     "desarrollador": "Nintendo",
     "stock": 200,
     "lanzamiento": "2022-03-18",
-    "imagen_url": "img/mk8_booster_pass_imgae.png"
+    "imagen_url": "../assets/img/mk8_booster_pass_imgae.png"
   },
   {
     "id": "016",
@@ -201,7 +201,7 @@
     "stock": 90,
     "lanzamiento": "2023-05-12",
     "idioma": ["Español", "Inglés"],
-    "imagen_url": "img/zelda.png"
+    "imagen_url": "../assets/img/zelda.png"
   },
   {
     "id": "017",
@@ -214,7 +214,7 @@
     "stock": 50,
     "lanzamiento": "2023-11-10",
     "idioma": ["Español", "Inglés"],
-    "imagen_url": "img/codmw3.png"
+    "imagen_url": "../assets/img/codmw3.png"
   },
   {
     "id": "018",
@@ -226,7 +226,7 @@
     "desarrollador": "Blizzard Entertainment",
     "stock": 300,
     "lanzamiento": "2022-10-04",
-    "imagen_url": "img/battlepass.png"
+    "imagen_url": "../assets/img/battlepass.png"
   },
   {
     "id": "019",
@@ -239,7 +239,7 @@
     "stock": 150,
     "lanzamiento": "2011-11-18",
     "idioma": ["Español", "Inglés"],
-    "imagen_url": "img/minecraft.jpg"
+    "imagen_url": "../assets/img/minecraft.png"
   },
   {
     "id": "020",
@@ -251,7 +251,7 @@
     "desarrollador": "Ubisoft",
     "stock": 65,
     "lanzamiento": "2022-03-10",
-    "imagen_url": "img/assasinscreedragnarok.jpg"
+    "imagen_url": "../assets/img/assasinscreedragnarok.png"
   },
   {
   "id": "021",
@@ -264,7 +264,7 @@
   "stock": 50,
   "lanzamiento": "2023-10-20",
   "idioma": ["Español", "Inglés"],
-  "imagen_url": "img/spiderman2.png"
+  "imagen_url": "../assets/img/spiderman2.png"
   },
 
   {
@@ -278,7 +278,7 @@
     "stock": 35,
     "lanzamiento": "2021-08-20",
     "idioma": ["Español", "Inglés", "Japonés"],
-    "imagen_url": "img/ghostoftsushimaDC.png"
+    "imagen_url": "../assets/img/ghostoftsushimaDC.png"
   },
   {
     "id": "023",
@@ -291,7 +291,7 @@
     "stock": 28,
     "lanzamiento": "2024-02-29",
     "idioma": ["Español", "Inglés", "Japonés"],
-    "imagen_url": "img/ffvii_rebirth.png"
+    "imagen_url": "../assets/img/ffvii_rebirth.png"
   },
   {
     "id": "024",
@@ -304,7 +304,7 @@
     "stock": 15,
     "lanzamiento": "2023-10-27",
     "idioma": ["Español", "Inglés"],
-    "imagen_url": "img/alanwake2.png"
+    "imagen_url": "../assets/img/alanwake2.png"
   },
   {
     "id": "025",
@@ -317,7 +317,7 @@
     "stock": 20,
     "lanzamiento": "2023-09-19",
     "idioma": ["Español", "Inglés", "Coreano"],
-    "imagen_url": "img/liesofp.png"
+    "imagen_url": "../assets/img/liesofp.png"
   },
   {
     "id": "026",
@@ -330,7 +330,7 @@
     "stock": 30,
     "lanzamiento": "2023-08-03",
     "idioma": ["Español", "Inglés", "Francés", "Alemán"],
-    "imagen_url": "img/baldursgate3.png"
+    "imagen_url": "../assets/img/baldursgate.3.png"
   }
 
 ]
