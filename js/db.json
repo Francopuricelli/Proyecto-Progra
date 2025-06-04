@@ -252,6 +252,85 @@
     "stock": 65,
     "lanzamiento": "2022-03-10",
     "imagen_url": "img/assasinscreedragnarok.jpg"
+  },
+  {
+  "id": "021",
+  "nombre": "Marvel's Spider-Man 2",
+  "tipo": "videojuego",
+  "plataforma": "PS5",
+  "precio": 69.99,
+  "desarrollador": "Insomniac Games",
+  "genero": "Acción / Aventura",
+  "stock": 50,
+  "lanzamiento": "2023-10-20",
+  "idioma": ["Español", "Inglés"],
+  "imagen_url": "img/spiderman2.png"
+  },
+
+  {
+    "id": "022",
+    "nombre": "Ghost of Tsushima Director's Cut",
+    "tipo": "videojuego",
+    "plataforma": "PS5",
+    "precio": 49.99,
+    "desarrollador": "Sucker Punch Productions",
+    "genero": "Acción / Aventura",
+    "stock": 35,
+    "lanzamiento": "2021-08-20",
+    "idioma": ["Español", "Inglés", "Japonés"],
+    "imagen_url": "img/ghostoftsushimaDC.png"
+  },
+  {
+    "id": "023",
+    "nombre": "Final Fantasy VII Rebirth",
+    "tipo": "videojuego",
+    "plataforma": "PS5",
+    "precio": 69.99,
+    "desarrollador": "Square Enix",
+    "genero": "RPG",
+    "stock": 28,
+    "lanzamiento": "2024-02-29",
+    "idioma": ["Español", "Inglés", "Japonés"],
+    "imagen_url": "img/ffvii_rebirth.png"
+  },
+  {
+    "id": "024",
+    "nombre": "Alan Wake II",
+    "tipo": "videojuego",
+    "plataforma": "PC",
+    "precio": 49.99,
+    "desarrollador": "Remedy Entertainment",
+    "genero": "Survival Horror",
+    "stock": 15,
+    "lanzamiento": "2023-10-27",
+    "idioma": ["Español", "Inglés"],
+    "imagen_url": "img/alanwake2.png"
+  },
+  {
+    "id": "025",
+    "nombre": "Lies of P",
+    "tipo": "videojuego",
+    "plataforma": "PS5",
+    "precio": 59.99,
+    "desarrollador": "NEOWIZ",
+    "genero": "Soulslike / RPG",
+    "stock": 20,
+    "lanzamiento": "2023-09-19",
+    "idioma": ["Español", "Inglés", "Coreano"],
+    "imagen_url": "img/liesofp.png"
+  },
+  {
+    "id": "026",
+    "nombre": "Baldur's Gate 3",
+    "tipo": "videojuego",
+    "plataforma": "PC",
+    "precio": 69.99,
+    "desarrollador": "Larian Studios",
+    "genero": "RPG",
+    "stock": 30,
+    "lanzamiento": "2023-08-03",
+    "idioma": ["Español", "Inglés", "Francés", "Alemán"],
+    "imagen_url": "img/baldursgate3.png"
   }
 
 ]
