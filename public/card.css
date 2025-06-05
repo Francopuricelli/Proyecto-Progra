@@ -1,0 +1,33 @@
+.game-card {
+  overflow: hidden;
+  border-radius: 1rem;
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.game-card:hover {
+  transform: scale(1.03);
+}
+
+.overlay-content {
+  background: rgba(0, 0, 0, 0.3);
+  transition: background 0.3s ease;
+}
+
+.card-details {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.4s ease;
+}
+
+.game-card:hover .card-details {
+  max-height: 200px;
+  opacity: 1;
+}
+
+
+#col{
+   margin-right: 15px;
+
+}

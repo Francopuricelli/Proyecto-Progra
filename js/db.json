@@ -331,6 +331,19 @@
     "lanzamiento": "2023-08-03",
     "idioma": ["Español", "Inglés", "Francés", "Alemán"],
     "imagen_url": "../assets/img/baldursgate.3.png"
+  },
+  {
+    "id": "027",
+    "nombre": "Sekiro: Shadows Die Twice",
+    "tipo": "videojuego",
+    "plataforma": "PC",
+    "precio": 69.99,
+    "desarrollador": "FromSoftware",
+    "genero": "Action RPG",
+    "stock": 30,
+    "lanzamiento": "2023-08-03",
+    "idioma": ["Español", "Inglés", "Francés", "Alemán"],
+    "imagen_url": "../assets/img/sekiro.png"
   }
 
 ]
