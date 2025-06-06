@@ -1,6 +1,5 @@
-const btn = document.getElementsByClassName('scroll-btn');
 
-catalogo = [];
+ let catalogo = [];
 
 const getData = async (url) => {
     let response = await fetch(url);
@@ -10,6 +9,7 @@ const getData = async (url) => {
     renderCatalogo(catalogo);
 }
 
+getData('http://localhost:3000/catalogo');
 
 function renderCatalogo(catalogo){
     let cardHtml= ""
@@ -42,13 +42,30 @@ function renderCatalogo(catalogo){
 }
 
 
-    getData('http://localhost:3000/catalogo');
+    
 
+//llamada a ids/clases
 const searchInput = document.querySelector(".searchInput");
-    searchInput.addEventListener("keyup", () => {
+const platformSelect = document.getElementById("consola")
+
+
+// AddEventListeners
+searchInput.addEventListener("keyup", () => {
         filterByName(catalogo);
     });
 
+platformSelect.addEventListener("change", () => {
+  if (platformSelect.value != 'all') {
+    filterByPlatform(catalogo); 
+  }else{
+    document.getElementById("productCards").innerHTML = "";
+    renderCatalogo(catalogo)
+    
+  }
+  });
+
+
+  //FUNCIONES FILTRAR
 function filtrarAny(arr, filtro,key) {
     return arr.filter((p) =>
         p[key].toLowerCase().includes(filtro) 
@@ -62,4 +79,10 @@ function filterByName(juegos){
     renderCatalogo(resultadoFiltrado);
 }
 
+function filterByPlatform(juegos) {
+    const plataforma = document.getElementById("consola").value;
+    const resultadoFiltrado = filtrarAny(juegos, plataforma.toLowerCase(), "plataforma");
+    document.getElementById("productCards").innerHTML = ""; 
+    renderCatalogo(resultadoFiltrado);
+} 
 

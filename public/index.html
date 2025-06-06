@@ -160,6 +160,18 @@
         </li>
         <li class="nav-item">
           <input class="searchInput" placeholder="Buscar Juego" />
+        </li>
+        <li class ="nav-item">
+          <label for="consola">Plataforma:</label>
+          <select id="consola">
+          <option value="" disabled selected>Elige una opción</option>
+          <option value="all">""</option>
+          <option value="PS5">PlayStation 5</option>
+          <option value="Xbox Series X">Xbox Series X</option>
+          <option value="Nintendo Switch">Nintendo Switch</option>
+          <option value="PC">PC</option>
+          </select>
+        </li> 
       </ul>
     </div>
   </nav>
@@ -214,6 +226,6 @@
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="catalogo.js"></script>
+  <script type="module" src="catalogo.js"></script>
 </body>
 </html>
