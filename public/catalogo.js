@@ -1,13 +1,15 @@
 
-const btn = document.getElementsByClassName('scroll-btn');
+ let catalogo = [];
 
-const getdata = async (url) => {
+const getData = async (url) => {
     let response = await fetch(url);
     const data = await response.json();
     catalogo = data;
     console.log(catalogo);
     renderCatalogo(catalogo);
 }
+
+getData('http://localhost:3000/catalogo');
 
 function renderCatalogo(catalogo){
     let cardHtml= ""
@@ -39,6 +41,47 @@ function renderCatalogo(catalogo){
  });
 }
 
-getdata("http://localhost:3000/catalogo");
+
+    
+
+//llamada a ids/clases
+const searchInput = document.querySelector(".searchInput");
+const platformSelect = document.getElementById("consola")
 
 
+// AddEventListeners
+searchInput.addEventListener("keyup", () => {
+        filterByName(catalogo);
+    });
+
+platformSelect.addEventListener("change", () => {
+  if (platformSelect.value != 'all') {
+    filterByPlatform(catalogo); 
+  }else{
+    document.getElementById("productCards").innerHTML = "";
+    renderCatalogo(catalogo)
+    
+  }
+  });
+
+
+  //FUNCIONES FILTRAR
+function filtrarAny(arr, filtro,key) {
+    return arr.filter((p) =>
+        p[key].toLowerCase().includes(filtro) 
+    );
+}
+
+function filterByName(juegos){
+    const filtro = document.querySelector(".searchInput").value.toLowerCase();
+    const resultadoFiltrado = filtrarAny(juegos, filtro, "nombre");
+    document.getElementById("productCards").innerHTML = ""; 
+    renderCatalogo(resultadoFiltrado);
+}
+
+function filterByPlatform(juegos) {
+    const plataforma = document.getElementById("consola").value;
+    const resultadoFiltrado = filtrarAny(juegos, plataforma.toLowerCase(), "plataforma");
+    document.getElementById("productCards").innerHTML = ""; 
+    renderCatalogo(resultadoFiltrado);
+} 
