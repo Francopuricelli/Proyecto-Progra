@@ -24,10 +24,16 @@ body {
 }
 
 .navbar {
-  background-color: var(--color-navbar);
-  font-family: 'Nippo', sans-serif;
-  padding: 1rem 2rem;
-}
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 100;
+        width: 100%;
+        background-color: var(--color-navbar);
+        font-family: 'Nippo', sans-serif;
+        padding: 1rem 2rem;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      }
 
 .navbar-brand img {
   height: 80px;

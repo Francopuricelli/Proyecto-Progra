@@ -11,7 +11,7 @@
     "lanzamiento": "2015-05-18",
     "idioma": ["Español", "Inglés"],
     "imagen_url": "../assets/img/thewitcher3.png"
-  },
+  }, 
   {
     "id": "002",
     "nombre": "Cyberpunk 2077",
@@ -89,7 +89,7 @@
     "stock": 45,
     "lanzamiento": "2023-03-24",
     "idioma": ["Español", "Inglés"],
-    "imagen_url": "../assets/img/Resident_Evil_4_Remake-559091650-large.png"
+    "imagen_url": "../assets/img/re4gameplay.png"
   },
   {
     "id": "008",
@@ -115,7 +115,7 @@
     "stock": 80,
     "lanzamiento": "2018-10-26",
     "idioma": ["Español", "Inglés"],
-    "imagen_url": "../assets/img/red_dead_3__nombre_temporal_-4030936.png"
+    "imagen_url": "../assets/img/rdr2.png"
   },
   {
     "id": "010",

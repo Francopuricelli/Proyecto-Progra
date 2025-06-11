@@ -46,9 +46,10 @@ function renderizarCarrito(){
 
     lista_carrito.forEach((item, index) => {
         const li = document.createElement("li");
+        li.className= "li-items";
 
         li.innerHTML = `
-           <img src="${item.image_url}" />
+           <img class="cart-img" src="${item.imagen_url} " />
         <div class="item-info">
           <h3>${item.nombre}</h3>
           <p>Plataforma: ${item.plataforma}</p>
@@ -114,6 +115,15 @@ function limpiarCarrito() {
 }
 // Evento para limpiar el carrito
 
+// document.querySelector(".clear-cart").addEventListener("click", ()=>{
+
+//     limpiarCarrito();
+//     console.log("Carrito limpiado");
+//     console.log(lista_carrito);
+    
+    
+
+// })
 
 // Recuperar el carrito guardado al cargar la página
 recuperarCarrito();
