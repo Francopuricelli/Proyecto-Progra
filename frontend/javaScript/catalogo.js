@@ -13,37 +13,43 @@ const getData = async (url) => {
 
 getData('js/db.json');
 
+
+
 function renderCatalogo(catalogo){
-    let cardHtml= ""
 
-    
-    catalogo.forEach((juego) =>{
-        const {id, nombre, tipo, plataforma, precio, imagen_url } = juego;
+  const juegosDiv = document.getElementById("productCards");
+  const dlcsDiv = document.getElementById("packCards");
+  juegosDiv.innerHTML = "";
+  dlcsDiv.innerHTML = "";
 
-  cardHtml = `
-        <div class="col-6 col-md-4 col-lg-3 mb-4"> 
-          <div class="card game-card text-white position-relative h-90 shadow">
-            <img src="${imagen_url}" class="card-img" alt="${nombre}">
-            <div class="card-img-overlay overlay-content d-flex flex-column justify-content-end p-3">
-              <h5 class="card-title">${nombre}</h5>
-              <div class="card-details">
-                <p class="card-text"><strong>Tipo:</strong> ${tipo}</p>
-                <p class="card-text"><strong>Consolas:</strong> ${plataforma}</p>
-                <p class="card-text"><strong>Precio:</strong> $${precio}</p>
-                <button class="btn btn-warning w-100 mt-2 agregar-carrito" data-id= "${id}">Agregar al carrito</button>
-              </div>
+  catalogo.forEach((juego) => {
+    const { id, nombre, tipo, plataforma, precio, imagen_url } = juego;
+
+    const cardHtml = `
+      <div class="col-6 col-md-4 col-lg-3 mb-4"> 
+        <div class="card game-card text-white position-relative h-90 shadow">
+          <img src="${imagen_url}" class="card-img" alt="${nombre}">
+          <div class="card-img-overlay overlay-content d-flex flex-column justify-content-end p-3">
+            <h5 class="card-title">${nombre}</h5>
+            <div class="card-details">
+              <p class="card-text"><strong>Tipo:</strong> ${tipo}</p>
+              <p class="card-text"><strong>Consolas:</strong> ${plataforma}</p>
+              <p class="card-text"><strong>Precio:</strong> $${precio}</p>
+              <button class="btn btn-warning w-100 mt-2 agregar-carrito" data-id="${id}">Agregar al carrito</button>
             </div>
           </div>
         </div>
-      `;
-    
-      
-      document.getElementById("productCards").insertAdjacentHTML("beforeend", cardHtml);
+      </div>`;
 
- });
+    if (tipo.toLowerCase() === "videojuego") {
+      juegosDiv.insertAdjacentHTML("beforeend", cardHtml);
+    } else if (tipo.toLowerCase() === "dlc" || tipo.toLowerCase() === "pack") {
+      dlcsDiv.insertAdjacentHTML("beforeend", cardHtml);
+    }
+  });
 }
-
-
+    
+    
     
 
 //llamada a ids/clases
@@ -64,6 +70,31 @@ platformSelect.addEventListener("change", () => {
     renderCatalogo(catalogo)
     
   }
+  });
+
+
+  const toggle = document.getElementById("themeToggle");
+
+  toggle.addEventListener("click", () => {
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute("data-theme") || "light";
+    const nextTheme = currentTheme === "dark" ? "light" : "dark";
+    html.setAttribute("data-theme", nextTheme);
+    localStorage.setItem("theme", nextTheme);
+
+
+    toggle.innerHTML = nextTheme === "dark"
+      ? '<i class="fa-solid fa-sun"></i>'
+      : '<i class="fa-solid fa-moon"></i>';
+  });
+
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+    toggle.innerHTML = savedTheme === "dark"
+      ? '<i class="fa-solid fa-sun"></i>'
+      : '<i class="fa-solid fa-moon"></i>';
   });
   
 // evento para agregar al carrito
@@ -94,6 +125,12 @@ function filterByName(juegos){
 
 function filterByPlatform(juegos) {
     const plataforma = document.getElementById("consola").value;
+    const resultadoFiltrado = filtrarAny(juegos, plataforma.toLowerCase(), "plataforma");
+    document.getElementById("productCards").innerHTML = ""; 
+    renderCatalogo(resultadoFiltrado);
+} 
+function filterByType(juegos) {
+    const plataforma = document.getElementById("tipo").value;
     const resultadoFiltrado = filtrarAny(juegos, plataforma.toLowerCase(), "plataforma");
     document.getElementById("productCards").innerHTML = ""; 
     renderCatalogo(resultadoFiltrado);

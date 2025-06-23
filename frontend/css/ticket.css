@@ -1,0 +1,63 @@
+@font-face {
+  font-family: 'Clash Display';
+  src: url('../assets/fonts/ClashDisplay-Variable.ttf');
+}
+@font-face {
+  font-family: 'Nippo';
+  src: url('../assets/fonts/Nippo-Variable.ttf');
+}
+
+body {
+  background: #223440;
+  font-family: 'Clash Display', sans-serif;
+  color: white;
+  margin-top: 40px;
+}
+
+h5, h3, h1, h2, th, td {
+  font-family: 'Nippo', sans-serif;
+}
+
+.recibo-main {
+  background: #1c2a35;
+  border-bottom: 12px solid #1c1c1c;
+  border-top: 12px solid #9B2915;
+  box-shadow: 0 1px 21px rgba(0,0,0,0.2);
+  padding: 40px 30px;
+  margin: auto;
+  max-width: 700px;
+  color: #ffffff;
+}
+
+.recibo-header,
+.recibo-header-mid,
+.recibo-footer {
+  margin-bottom: 2rem;
+}
+
+.recibo-right p i {
+  width: 18px;
+  text-align: center;
+}
+
+.recibo-main thead {
+  background: #1b2b36;
+}
+
+.recibo-main thead th {
+  color: #000;
+}
+
+.text-danger strong {
+  color: #C28C17;
+}
+
+.btn-warning {
+  background-color: #C28C17;
+  border: none;
+  font-weight: bold;
+}
+
+.btn-warning:hover {
+  background-color: #dba126;
+}

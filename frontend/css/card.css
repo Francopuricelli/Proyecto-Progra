@@ -14,13 +14,28 @@
   --color-bg: #223440;
   --color-texto-rojo: #9B2915;
   --color-boton: #C28C17;
+  --color-texto: #ffffff;
+  --color-card-bg: #1c2a35;
+  --color-secundario: #ccc;
 }
+
+[data-theme="light"] {
+  --color-navbar: #ffffff;
+  --color-bg: #F4F2EE;
+  --color-texto-rojo: #BF3C2C;
+  --color-boton: #C28C17;
+  --color-texto: #222222;
+  --color-card-bg: #ffffff;
+  --color-secundario: #444444;
+}
+
+
 
 body {
   background-color: var(--color-bg);
   margin: 0;
   font-family: 'Clash Display', sans-serif;
-  color: white;
+  color: var(--color-texto);
 }
 
 .navbar {
@@ -40,7 +55,7 @@ body {
 }
 
 .navbar-nav .nav-link {
-  color: #000;
+  color: var(--color-texto);
   margin: 0 1rem;
   font-weight: 500;
 }
@@ -71,11 +86,11 @@ body {
   font-weight: 500;
   font-family: 'Clash Display', sans-serif;
   padding: 5px;
-  color: #000;
+  color: var(--color-texto);
 }
 
 .searchIcon {
-  color: #000;
+  color: var(--color-texto);
   font-size: 18px;
   transition: transform 0.3s ease;
   padding-right: 10px;
@@ -91,7 +106,7 @@ body {
 .platform-label {
   margin-right: 0.5rem;
   font-weight: 500;
-  color: #000;
+  color: var(--color-texto);
   font-family: 'Nippo', sans-serif;
 }
 
@@ -103,7 +118,7 @@ body {
   font-size: 0.95rem;
   font-weight: 300;
   font-family: 'Nippo', sans-serif;
-  color: #000;
+  color: var(--color-texto);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
   cursor: pointer;
@@ -174,7 +189,7 @@ body {
 
 .scroll-btn {
   background-color: var(--color-boton);
-  color: white;
+  color: var(--color-texto);
   border: none;
   border-radius: 10px;
   padding: 0.8rem 2rem;
@@ -188,7 +203,17 @@ body {
   box-shadow: 0 0 10px #000;
 }
 
+section {
 
+  margin-bottom: 4rem;
+}
+
+
+.cardContainer .row {
+  display: flex;
+  flex-wrap: wrap;
+  
+}
 
 #productCards {
   display: flex;
@@ -196,9 +221,9 @@ body {
 }
 
 
-#juegos {
-  height: 400px;
-  background-color: #1b2b36;
+#juegos , #dlc-Packs {
+  min-height: 400px;
+  background-color: var(--color-card-bg);
   padding: 2rem;
 }
 
