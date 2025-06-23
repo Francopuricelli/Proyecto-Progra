@@ -20,13 +20,13 @@
 }
 
 [data-theme="light"] {
-  --color-navbar: #ffffff;
-  --color-bg: #F4F2EE;
-  --color-texto-rojo: #BF3C2C;
-  --color-boton: #C28C17;
-  --color-texto: #222222;
-  --color-card-bg: #ffffff;
-  --color-secundario: #444444;
+  --color-navbar: #fff0f4;
+  --color-bg: #92727d;
+  --color-texto-rojo: #c7526c;
+  --color-boton: #f8a9c4;
+  --color-texto: #2a2a2a;
+  --color-card-bg: #f5cbda;
+  --color-secundario: #5a4b4c;
 }
 
 
@@ -51,7 +51,8 @@ body {
       }
 
 .navbar-brand img {
-  height: 80px;
+  width: 90px;
+  height: 90px;
 }
 
 .navbar-nav .nav-link {

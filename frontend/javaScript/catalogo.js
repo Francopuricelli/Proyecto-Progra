@@ -104,6 +104,12 @@ document.getElementById("productCards").addEventListener("click", (e) => {
         agregarAlCarrito(productoId, catalogo);
     }
 });
+document.getElementById("packCards").addEventListener("click", (e) => {
+    if (e.target.classList.contains("agregar-carrito")) {
+        const productoId = e.target.getAttribute("data-id");
+        agregarAlCarrito(productoId, catalogo);
+    }
+});
 
 
 
