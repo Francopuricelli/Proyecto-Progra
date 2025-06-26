@@ -11,7 +11,7 @@ const getData = async (url) => {
     renderCatalogo(catalogo);
 }
 
-getData('js/db.json');
+getData('http://localhost:3000/products');
 
 
 
@@ -99,12 +99,6 @@ platformSelect.addEventListener("change", () => {
   
 // evento para agregar al carrito
 document.getElementById("productCards").addEventListener("click", (e) => {
-    if (e.target.classList.contains("agregar-carrito")) {
-        const productoId = e.target.getAttribute("data-id");
-        agregarAlCarrito(productoId, catalogo);
-    }
-});
-document.getElementById("packCards").addEventListener("click", (e) => {
     if (e.target.classList.contains("agregar-carrito")) {
         const productoId = e.target.getAttribute("data-id");
         agregarAlCarrito(productoId, catalogo);
