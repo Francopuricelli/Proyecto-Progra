@@ -115,19 +115,16 @@ function limpiarCarrito() {
 }
 // Evento para limpiar el carrito
 
-const clearCart = document.querySelector(".clear-cart");
+// document.querySelector(".clear-cart").addEventListener("click", ()=>{
 
-if (clearCart){
-    clearCart.addEventListener("click", ()=>{
+//     limpiarCarrito();
+//     console.log("Carrito limpiado");
+//     console.log(lista_carrito);
+    
+    
 
-        limpiarCarrito(); 
-        console.log("Carrito limpiado");
-        console.log(lista_carrito);
-        
-        
+// })
 
-    })
-}
 // Recuperar el carrito guardado al cargar la página
 recuperarCarrito();
 renderizarCarrito();

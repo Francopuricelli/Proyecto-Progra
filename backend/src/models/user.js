@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize';
 import sequelize from '../config/db-sequalize.js';
 
+
 const User = sequelize.define('user', {
   id: {
     type: DataTypes.INTEGER,
@@ -8,12 +9,17 @@ const User = sequelize.define('user', {
     primaryKey: true,
     allowNull: false,
   },
-  firstName: {
-    type: DataTypes.STRING,
-    allowNull: true,
+  username: {
+    type: DataTypes.STRING(100),
+    allowNull: false,
+    unique: true
+  },
+  user_password: {
+    type: DataTypes.STRING(255),
+    allowNull: false
   }
 }, {
-  tableName: 'users', // nombre de la tabla real en MySQL
+  tableName: 'users',
 });
 
-export default User;
+export default User

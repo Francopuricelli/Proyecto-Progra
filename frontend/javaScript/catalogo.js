@@ -11,7 +11,7 @@ const getData = async (url) => {
     renderCatalogo(catalogo);
 }
 
-getData('js/db.json');
+getData('http://localhost:3000/products');
 
 
 
