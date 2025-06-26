@@ -56,7 +56,7 @@ body {
 }
 
 .navbar-nav .nav-link {
-  color: var(--color-texto);
+  color: #000;
   margin: 0 1rem;
   font-weight: 500;
 }
@@ -85,13 +85,13 @@ body {
   outline: none;
   background: transparent;
   font-weight: 500;
-  font-family: 'Clash Display', sans-serif;
+  font-family: 'Nippo', sans-serif;
   padding: 5px;
-  color: var(--color-texto);
+  color: #000;
 }
 
 .searchIcon {
-  color: var(--color-texto);
+  color: var(--color-bg);
   font-size: 18px;
   transition: transform 0.3s ease;
   padding-right: 10px;
@@ -107,7 +107,7 @@ body {
 .platform-label {
   margin-right: 0.5rem;
   font-weight: 500;
-  color: var(--color-texto);
+  color: #000;
   font-family: 'Nippo', sans-serif;
 }
 
@@ -119,7 +119,7 @@ body {
   font-size: 0.95rem;
   font-weight: 300;
   font-family: 'Nippo', sans-serif;
-  color: var(--color-texto);
+  color: #000;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
   transition: all 0.3s ease;
   cursor: pointer;
@@ -218,7 +218,6 @@ section {
 
 #productCards {
   display: flex;
-
 }
 
 
@@ -256,8 +255,55 @@ section {
   opacity: 1;
 }
 
+.game-card:hover .agregar-carrito{
+  
+  transition: 0.5s;
+  }
+
+.game-card:hover .agregar-carrito:hover{
+  background-color: #fff;
+  transition: 0.5s;
+  }
 
 #col{
    margin-right: 15px;
 
 }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: translateY(0); }
+  to   { opacity: 0; transform: translateY(20px); }
+}
+
+.alert.fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+.alert.fade-out {
+  animation: fadeOut 0.5s ease forwards;
+}
+
+.footer-dev {
+  background-color: var(--color-navbar);
+  color: var(--color-texto);
+  font-family: 'Nippo', sans-serif;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 10;
+}
+
+.footer-dev a {
+  color: var(--color-texto);
+  transition: color 0.2s ease;
+}
+
+.footer-dev a:hover {
+  color: var(--color-boton);
+}
+

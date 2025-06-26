@@ -102,12 +102,14 @@ document.getElementById("productCards").addEventListener("click", (e) => {
     if (e.target.classList.contains("agregar-carrito")) {
         const productoId = e.target.getAttribute("data-id");
         agregarAlCarrito(productoId, catalogo);
+        mostrarAlerta("Producto agregado al carrito");
     }
 });
 document.getElementById("packCards").addEventListener("click", (e) => {
     if (e.target.classList.contains("agregar-carrito")) {
         const productoId = e.target.getAttribute("data-id");
         agregarAlCarrito(productoId, catalogo);
+        mostrarAlerta("Producto agregado al carrito");
     }
 });
 
@@ -135,9 +137,32 @@ function filterByPlatform(juegos) {
     document.getElementById("productCards").innerHTML = ""; 
     renderCatalogo(resultadoFiltrado);
 } 
+
 function filterByType(juegos) {
     const plataforma = document.getElementById("tipo").value;
     const resultadoFiltrado = filtrarAny(juegos, plataforma.toLowerCase(), "plataforma");
     document.getElementById("productCards").innerHTML = ""; 
     renderCatalogo(resultadoFiltrado);
 } 
+
+
+function mostrarAlerta(mensaje) {
+  const contenedor = document.getElementById("alert-container");
+
+  const alerta = document.createElement("div");
+  alerta.className = "alert alert-success alert-dismissible fade-in";
+  alerta.role = "alert";
+  alerta.innerHTML = `
+    <strong>✅</strong> ${mensaje}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  `;
+
+  contenedor.appendChild(alerta);
+
+  setTimeout(() => {
+    alerta.classList.remove("fade-in");
+    alerta.classList.add("fade-out");
+
+    setTimeout(() => alerta.remove(), 500); 
+  }, 3000);
+}
