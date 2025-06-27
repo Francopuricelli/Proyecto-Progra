@@ -1,0 +1,85 @@
+
+body {
+  background: linear-gradient(to bottom right, #223440, #1a2b36);
+  font-family: 'Clash Display', sans-serif;
+  color: #ffffff;
+  min-height: 100vh;
+  padding-bottom: 4rem;
+}
+
+
+.admin-navbar {
+  background: #E4E2DD;
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  border-bottom: 4px solid #C28C17;
+}
+
+.admin-title {
+  font-family: 'Nippo', sans-serif;
+  font-size: 1.5rem;
+  margin-left: 1rem;
+  color: #000;
+}
+
+
+.table thead {
+  background-color: #C28C17;
+  color: #000;
+}
+
+.table td, .table th {
+  vertical-align: middle;
+  border-color: #395F58;
+}
+
+.badge.bg-success {
+  background-color: #28a745;
+}
+
+.badge.bg-secondary {
+  background-color: #6c757d;
+}
+
+.btn-outline-info {
+  border-color: #17a2b8;
+  color: #17a2b8;
+}
+
+.btn-outline-info:hover {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.btn-outline-danger:hover {
+  background-color: #9B2915;
+  color: white;
+  border-color: #9B2915;
+}
+
+.btn-outline-success:hover {
+  background-color: #28a745;
+  color: white;
+}
+
+.btn i {
+  pointer-events: none;
+}
+
+form.bg-dark {
+  background-color: #1c2a35 !important;
+  border: 1px solid #395F58;
+}
+
+.form-label, .form-select, .form-control {
+  color: #fff;
+}
+
+.form-control, .form-select {
+  background-color: #223440;
+  border: 1px solid #395F58;
+}
+
+.form-control::placeholder {
+  color: #ccc;
+}
