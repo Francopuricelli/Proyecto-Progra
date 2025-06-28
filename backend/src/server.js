@@ -4,11 +4,9 @@ import UserRouter from './routes/user.routing.js'
 import envs from './config/envs.js'
 import sequelize from './config/db-sequalize.js';
 import {join, __dirname} from './utils/index.js'
-import cors from 'cors'
-
+import cors from 'cors';
 import path from 'path';
-import fs from 'fs';
-import ejs from 'ejs';
+
 
 //settings
 const app= express();
@@ -26,22 +24,36 @@ const initializeConnection= async () =>{
 
 //middlewares
 app.use(cors());
+app.use(express.static(join(__dirname, "../../frontend")));
 app.use(express.static(join(__dirname,"../public"))); // Sirve archivos estáticos desde la carpeta 'public'
 app.use(express.json()); // Permite que el servidor entienda JSON en las solicitudes
-app.use("api/products", ProductRouter); 
-app.use("api/users", UserRouter);
+app.use("/api/products", ProductRouter); 
+app.use("/api/users", UserRouter);
 
+
+
+app.get("/", (req, res) => {
+  res.sendFile(join(__dirname, "../../frontend/index.html"));
+});
 
 
 app.set("view engine", "ejs");
-app.set("views", join(__dirname, "../views"));
+app.set("views", join(__dirname, "../src/views"));
 
-app.get("/admin", async (req, res) => {
-  const contenido = fs.readFileSync(join(__dirname, "../views/admin.ejs"), "utf8");
-  const body = ejs.render(contenido);
-  res.render("index", { title: "Panel de administración", body });
-});
+app.use(express.static(path.join(__dirname, './public')));
 
+
+
+
+app.get("/admin-login", (req, res) =>{
+  res.render("admin-login")
+})
+app.get("/index", (req, res) =>{
+  res.render("index")
+})
+app.get("/admin-create", (req, res) =>{
+  res.render("admin-create")
+})
 
 ///Inicializacion del servidor
 

@@ -11,7 +11,7 @@ const getData = async (url) => {
     renderCatalogo(catalogo);
 }
 
-getData('http://localhost:3000/products');
+getData('http://localhost:3000/api/products');
 
 
 
@@ -166,3 +166,10 @@ function mostrarAlerta(mensaje) {
     setTimeout(() => alerta.remove(), 500); 
   }, 3000);
 }
+
+
+const adminLink = document.querySelector('.admin-link');
+adminLink.addEventListener('click', (e) => {
+  e.preventDefault();
+  window.location.href = 'http://localhost:3000/admin-panel';
+});
