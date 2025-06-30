@@ -1,6 +1,7 @@
 import express from 'express';
 import ProductRouter from './routes/product.routing.js';
 import UserRouter from './routes/user.routing.js'
+import ViewRouter from './routes/product.view.routes.js';
 import envs from './config/envs.js'
 import sequelize from './config/db-sequalize.js';
 import {join, __dirname} from './utils/index.js'
@@ -29,7 +30,7 @@ app.use(express.static(join(__dirname,"../public"))); // Sirve archivos estátic
 app.use(express.json()); // Permite que el servidor entienda JSON en las solicitudes
 app.use("/api/products", ProductRouter); 
 app.use("/api/users", UserRouter);
-
+app.use("/api/views", ViewRouter);
 
 
 app.get("/", (req, res) => {
@@ -45,15 +46,7 @@ app.use(express.static(path.join(__dirname, './public')));
 
 
 
-app.get("/admin-login", (req, res) =>{
-  res.render("admin-login")
-})
-app.get("/index", (req, res) =>{
-  res.render("index")
-})
-app.get("/admin-create", (req, res) =>{
-  res.render("admin-create")
-})
+
 
 ///Inicializacion del servidor
 

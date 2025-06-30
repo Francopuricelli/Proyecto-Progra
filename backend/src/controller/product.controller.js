@@ -6,7 +6,7 @@ const ProductController = {
       const products = await ProductDao.getAll();
       res.json(products);
     } catch (err) {
-      res.status(500).json({ error: "Error obteniendo usuarios" });
+      res.status(500).json({ error: "Error obteniendo productos" });
     }
   },
 
@@ -17,16 +17,16 @@ const ProductController = {
       if (product) {
         res.json(product);
       } else {
-        res.status(404).json({ error: "no se encontro el usuario." });
+        res.status(404).json({ error: "no se encontro el producto." });
       }
     } catch (err) {
-      res.status(500).json({ error: "error encontrando el usuario." });
+      res.status(500).json({ error: "error encontrando el producto." });
     }
   },
 
   async create(req, res) {
     try {
-      const { product } = req.body;
+      const  product  = req.body;
       const newProduct = await ProductDao.create(product);
       res.status(201).json(newProduct);
     } catch (err) {

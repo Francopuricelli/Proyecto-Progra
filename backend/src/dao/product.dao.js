@@ -12,7 +12,7 @@ const ProductDao = {
   },
 
   async create(producto) {
-    const newProduct = await Product.create({producto});
+    const newProduct = await Product.create(producto);
     return newProduct;
   },
 

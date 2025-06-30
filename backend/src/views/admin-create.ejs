@@ -12,9 +12,9 @@
 
     <%- include("partials/navbar.ejs")%>
   <main class="container mt-5 text-white">
-    <h2 class="mb-4">Editar Producto</h2>
+    <h2 class="mb-4">Agregar Producto</h2>
 
-    <form action="admin/edit" method="POST" enctype="multipart/form-data" class="bg-dark p-4 rounded shadow">
+    <form action="/api/products/create" method="POST" enctype="multipart/form-data" class="bg-dark p-4 rounded shadow">
       
       <div class="mb-3">
         <label for="nombre" class="form-label">Nombre del producto</label>

@@ -37,4 +37,32 @@
 
 
 </body>
+
+<script>
+document.getElementById('login-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const username = document.getElementById('email').value;
+  const user_password = document.getElementById('password').value;
+
+  try {
+    const response = await fetch('/api/users/login', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({ username, user_password })
+    });
+
+    const data = await response.json();
+    if (response.ok) {
+      alert('Login exitoso');
+      window.location.href = '/admin-panel';
+    } else {
+      alert(data.error);
+    }
+  } catch (err) {
+    console.error(err);
+    alert('Error en la solicitud');
+  }
+});
+</script>
+
 </html>
