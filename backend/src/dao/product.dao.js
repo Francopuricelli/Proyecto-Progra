@@ -25,9 +25,19 @@ const ProductDao = {
 
   async delete(id) {
     const product = await Product.findByPk(id);
-    if (product) return null;
+    if (!product) return null;
     await product.destroy();
     return true;
+  },
+
+  async toggleEstado(id) {
+  const product = await Product.findByPk(id);
+  if (!product) return null;
+
+  const nuevoEstado = !product.activo;
+  await product.update({ activo: nuevoEstado });
+
+  return product;
   }
 };
 

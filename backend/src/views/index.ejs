@@ -33,13 +33,13 @@
         </thead>
         <tbody>
           <% products.forEach(product => { %>
-            <tr>
+            <tr data-id="<%= product.id %>">
               <td><%= product.nombre %></td>
               <td>$<%= product.precio %></td>
               <td><%= product.stock %></td>
               <td><%= product.plataforma %></td>
               <td>
-                <span class="badge <%= product.activo ? 'bg-success' : 'bg-secondary' %>">
+                <span class="badge <%= product.activo ? 'bg-success' : 'bg-secondary' %>"> 
                   <%= product.activo ? 'Activo' : 'Inactivo' %>
                 </span>
               </td>
@@ -47,10 +47,18 @@
                 <a href="/api/views/admin-edit/<%= product.id %>" class="btn btn-sm btn-outline-info me-1" title="Editar">
                   <i class="fas fa-edit"></i>
                 </a>
-                <button class="btn btn-sm btn-outline-secondary me-1" title="Desactivar">
-                  <i class="fas fa-times"></i>
+                <button 
+                  class="btn btn-sm me-1 toggle-btn <%= product.activo ? 'btn-outline-secondary' : 'btn-outline-success' %>" 
+                  data-id="<%= product.id %>" 
+                  title="<%= product.activo ? 'Desactivar' : 'Activar' %>"
+                >
+                  <i class="fas <%= product.activo ? 'fa-times' : 'fa-check' %>"></i>
                 </button>
-                <button  class="btn btn-sm btn-outline-danger" title="Eliminar">
+                <button 
+                  class="btn btn-sm btn-outline-danger delete-btn" 
+                  data-id="<%= product.id %>" 
+                  title="Eliminar"
+                >
                   <i class="fas fa-trash-alt"></i>
                 </button>
               </td>
@@ -65,4 +73,83 @@
   <%- include("partials/footer.ejs") %>
 
 </body>
+<script>
+const toggleButtons = document.querySelectorAll('.toggle-btn');
+const deleteButtons = document.querySelectorAll('.delete-btn');
+  toggleButtons.forEach(button => {
+    button.addEventListener('click', async (e) => {
+      e.preventDefault();
+
+      const productId = button.dataset.id;
+      const tr = button.closest('tr'); 
+      const badge = tr.querySelector('td:nth-child(5) .badge');
+
+      try {
+        const response = await fetch(`/api/products/${productId}/toggle`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' }
+        });
+
+        if (response.ok) {
+          const updatedProduct = await response.json();
+
+          // Actualizar badge
+          if (updatedProduct.activo) {
+            badge.classList.remove('bg-secondary');
+            badge.classList.add('bg-success');
+            badge.textContent = 'Activo';
+
+            // Cambiar botón para desactivar
+            button.title = 'Desactivar';
+            button.querySelector('i').className = 'fas fa-times';
+            button.classList.remove('btn-outline-success');
+            button.classList.add('btn-outline-secondary');
+          } else {
+            badge.classList.remove('bg-success');
+            badge.classList.add('bg-secondary');
+            badge.textContent = 'Inactivo';
+
+            // Cambiar botón para activar
+            button.title = 'Activar';
+            button.querySelector('i').className = 'fas fa-check';
+            button.classList.remove('btn-outline-secondary');
+            button.classList.add('btn-outline-success');
+          }
+
+        } else {
+          alert('Error al cambiar estado del producto.');
+        }
+      } catch (error) {
+        console.error('Error en la petición:', error);
+        alert('Error en la conexión.');
+      }
+    });
+  });
+
+deleteButtons.forEach(button => {
+    button.addEventListener('click', async (e) => {
+      e.preventDefault();
+
+      const productId = button.dataset.id;
+      const tr = button.closest('tr');
+
+
+      try {
+        const response = await fetch(`/api/products/${productId}`, {
+          method: 'DELETE',
+        });
+
+        if (!response.ok) throw new Error('Error en el servidor');
+
+        // Eliminar fila de la tabla
+        tr.remove();
+        alert('Producto eliminado correctamente.');
+      } catch (error) {
+        console.error('Error al eliminar producto:', error);
+        alert('No se pudo eliminar el producto.');
+      }
+    });
+  });
+
+</script>
 </html>

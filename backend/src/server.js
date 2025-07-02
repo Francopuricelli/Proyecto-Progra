@@ -25,7 +25,7 @@ const initializeConnection= async () =>{
 
 //middlewares
 app.use(cors());
-app.use(express.static(join(__dirname, "../../frontend")));
+app.use('/frontend', express.static(join(__dirname, '../../../frontend')));
 app.use(express.static(join(__dirname,"../public"))); // Sirve archivos estáticos desde la carpeta 'public'
 app.use(express.json()); // Permite que el servidor entienda JSON en las solicitudes
 app.use("/api/products", ProductRouter); 
