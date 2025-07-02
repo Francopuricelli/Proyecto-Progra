@@ -52,6 +52,10 @@ h5, h3, h1, h2, th, td {
   color: #C28C17;
 }
 
+.btn-container{ 
+  text-align: center;
+  margin: 2rem 0;
+}
 .btn-warning {
   background-color: #C28C17;
   border: none;

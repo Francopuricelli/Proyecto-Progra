@@ -59,8 +59,8 @@ const platformSelect = document.getElementById("consola")
 
 // AddEventListeners
 searchInput.addEventListener("keyup", () => {
-        filterByName(catalogo);
-    });
+  filterByName(catalogo);
+});
 
 platformSelect.addEventListener("change", () => {
   if (platformSelect.value != 'all') {
@@ -70,8 +70,13 @@ platformSelect.addEventListener("change", () => {
     renderCatalogo(catalogo)
     
   }
-  });
+});
 
+const adminLink = document.querySelector('.admin-link');
+adminLink.addEventListener('click', (e) => {
+  e.preventDefault();
+  window.location.href = 'http://localhost:3000/admin-login';
+});
 
   const toggle = document.getElementById("themeToggle");
 
@@ -168,8 +173,3 @@ function mostrarAlerta(mensaje) {
 }
 
 
-const adminLink = document.querySelector('.admin-link');
-adminLink.addEventListener('click', (e) => {
-  e.preventDefault();
-  window.location.href = 'http://localhost:3000/admin-panel';
-});

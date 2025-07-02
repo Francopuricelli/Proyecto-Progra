@@ -54,10 +54,14 @@
 
       <div class="recibo-footer text-center mt-4">
         <p>¡Gracias por tu compra!</p>
-        <button class="btn btn-warning mt-3" onclick="window.print()">Descargar PDF</button>
       </div>
     </div>
   </div>
-    <script src="javaScript/ticket.js"></script>
+  <div class="btn-container">
+    <button class="btn btn-warning mt-3" onclick="descargarTicket()">Descargar PDF</button>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="javaScript/ticket.js"></script>
 </body>
 </html>

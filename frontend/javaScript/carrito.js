@@ -4,15 +4,23 @@ let lista_carrito = [];
 
 export function agregarAlCarrito(producto_id, lista_juegos) {
 
+    console.log("funciona");
+    console.log(producto_id);
+    
+    
     const carritoGuardado = localStorage.getItem("carrito"); 
     if (carritoGuardado) {
         lista_carrito = JSON.parse(carritoGuardado);
+        console.log("carrito cargado");
+        
     }
 
-    const productoExistente = lista_juegos.find(p => p.id === producto_id); 
+
+// como antes los prod. estaban hardcodeados, se podía comparar, ahora vienen del back, asi que hay que pasarlos a numeros para poder comparar ID
+    const productoExistente = lista_juegos.find(p => p.id === Number(producto_id)); 
     if (!productoExistente) return;
 
-    const productoEnCarrito = lista_carrito.find(p => p.id === producto_id);
+    const productoEnCarrito = lista_carrito.find(p => p.id === Number(producto_id));
 
     if (productoEnCarrito) {
         productoEnCarrito.cantidad += 1; 
@@ -21,6 +29,7 @@ export function agregarAlCarrito(producto_id, lista_juegos) {
             ...productoExistente,
             cantidad: 1
         };
+        productoParaCarrito.id;
         lista_carrito.push(productoParaCarrito);
     }
 
