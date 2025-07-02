@@ -49,6 +49,10 @@ const Product = sequelize.define('product', {
     allowNull: false,
     defaultValue: true,
   },
+  stock: {
+    type: DataTypes.STRING(255),
+    allowNull: false,
+  },
 },
 {
   tableName: 'products', // nombre de la tabla real en MySQL

@@ -117,23 +117,51 @@ function recuperarCarrito() {
     lista_carrito = carritoGuardado ? JSON.parse(carritoGuardado) : [];
 }
 
+async function confirmarCompra() {
+  if (lista_carrito.length === 0) {
+    alert("El carrito está vacío.");
+    return;
+  }
+
+  const user_id = 1;
+
+  const venta = {
+    user_id: user_id,
+    productos: lista_carrito.map((item) => ({
+      product_id: item.id,
+      cantidad: item.cantidad,
+      precio: item.precio
+    }))
+  };
+
+  try {
+    const response = await fetch("/api/sales/create", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(venta)
+    });
+
+    if (response.ok) {
+      alert("¡Compra realizada con éxito!");
+      limpiarCarrito();
+      window.location.href = "/ticket.html"; 
+    } else {
+      const data = await response.json();
+      alert("Error al registrar la compra: " + (data.error || "Desconocido"));
+    }
+  } catch (error) {
+    console.error("Error en la solicitud:", error);
+    alert("Error de red al intentar registrar la compra.");
+  }
+}
+
+
+
 function limpiarCarrito() {
     lista_carrito = [];
     localStorage.removeItem("carrito");
     renderizarCarrito();
 }
-// Evento para limpiar el carrito
-
-// document.querySelector(".clear-cart").addEventListener("click", ()=>{
-
-//     limpiarCarrito();
-//     console.log("Carrito limpiado");
-//     console.log(lista_carrito);
-    
-    
-
-// })
-
 // Recuperar el carrito guardado al cargar la página
 recuperarCarrito();
 renderizarCarrito();

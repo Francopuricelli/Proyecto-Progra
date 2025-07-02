@@ -1,7 +1,9 @@
 import express from 'express';
 import ProductRouter from './routes/product.routing.js';
-import UserRouter from './routes/user.routing.js'
+import AdminRouter from './routes/admin.routing.js';
+import UserRouter from './routes/user.route.js';
 import ViewRouter from './routes/product.view.routes.js';
+import SaleRouter from './routes/sales.route.js';
 import envs from './config/envs.js'
 import sequelize from './config/db-sequalize.js';
 import {join, __dirname} from './utils/index.js'
@@ -25,13 +27,14 @@ const initializeConnection= async () =>{
 
 //middlewares
 app.use(cors());
-app.use('/frontend', express.static(join(__dirname, '../../../frontend')));
+app.use(express.static(join(__dirname, "../../frontend")));
 app.use(express.static(join(__dirname,"../public"))); // Sirve archivos estáticos desde la carpeta 'public'
 app.use(express.json()); // Permite que el servidor entienda JSON en las solicitudes
 app.use("/api/products", ProductRouter); 
+app.use("/api/admins", AdminRouter);
 app.use("/api/users", UserRouter);
 app.use("/api/views", ViewRouter);
-
+app.use("/api/sales", SaleRouter);
 
 app.get("/", (req, res) => {
   res.sendFile(join(__dirname, "../../frontend/index.html"));

@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 import sequelize from '../config/db-sequalize.js';
 
 
-const User = sequelize.define('user', {
+const Admin = sequelize.define('admin', {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -12,12 +12,14 @@ const User = sequelize.define('user', {
   username: {
     type: DataTypes.STRING(100),
     allowNull: false,
-   
+    unique: true
+  },
+  user_password: {
+    type: DataTypes.STRING(255),
+    allowNull: false
   }
-
 }, {
-  tableName: 'users',
-  timestamps: false
+  tableName: 'admins',
 });
 
-export default User
+export default Admin
