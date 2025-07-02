@@ -26,7 +26,7 @@ const ProductController = {
 
   async create(req, res) {
     try {
-      const  product  = req.body;
+      const product = req.body;
       const newProduct = await ProductDao.create(product);
       res.status(201).json(newProduct);
     } catch (err) {
@@ -37,12 +37,26 @@ const ProductController = {
   async update(req, res) {
     try {
       const { id } = req.params;
-      const { product } = req.body;
+      const product = req.body;
       const updatedProduct = await ProductDao.update(id, product);
       res.json(updatedProduct);
     } catch (err) {
       res.status(500).json({ error: "Error actualizando el producto" });
     }
+  },
+  async toggleEstado(req, res) {
+  try {
+    const { id } = req.params;
+    const producto = await ProductDao.toggleEstado(id);
+
+    if (!producto) {
+      return res.status(404).json({ error: "Producto no encontrado" });
+    }
+
+    res.json({ message: "Estado actualizado", producto });
+  } catch (err) {
+    res.status(500).json({ error: "Error actualizando estado" });
+  }
   },
 
   async delete(req, res) {

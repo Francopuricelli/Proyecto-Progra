@@ -15,9 +15,8 @@
   <main class="container mt-5 text-white">
     <h2 class="mb-4">Editar Producto</h2>
 
-    <form action="/api/products/<%= product.id %>" method="POST" enctype="multipart/form-data" class="bg-dark p-4 rounded shadow">
+    <form id="edit-product" data-id="<%= product.id %>" enctype="multipart/form-data" class="bg-dark p-4 rounded shadow">
 
-      <input type="hidden" name="_method" value="PUT">
 
       <div class="mb-3">
         <label for="nombre" class="form-label">Nombre del producto</label>
@@ -81,4 +80,48 @@
 
   <%- include("partials/footer.ejs") %>
 </body>
+
+<script>
+   const editProductForm = document.getElementById('edit-product');
+
+editProductForm.addEventListener("submit", async (e) => {
+  e.preventDefault(); 
+
+  const productId = editProductForm.dataset.id;
+
+  const productName = document.getElementById('nombre').value;
+  const productPrice = parseFloat(document.getElementById('precio').value);
+  const productStock = parseInt(document.getElementById('stock').value);
+  const productPlatform = document.getElementById('plataforma').value;
+
+
+  const updatedProduct = {
+    nombre: productName,
+    precio: productPrice,
+    stock: productStock,
+    plataforma: productPlatform
+  };
+
+  try {
+    const response = await fetch(`/api/products/${productId}`, {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updatedProduct)
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert('Producto editado exitosamente!');
+      window.location.href = '/api/views/index';
+    } else {
+      alert(data.error || 'Error al actualizar el producto');
+    }
+  } catch (err) {
+    console.error(err);
+    alert('Error en la solicitud');
+  }
+});
+
+</script>
 </html>

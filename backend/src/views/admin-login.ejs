@@ -23,7 +23,7 @@
         <h1>Login Administrador</h1>
 
         <div class="input-box">
-          <input type="email" id="email" placeholder="Correo electrónico" required />
+          <input type="text" id="username" placeholder="Username" required />
         </div>
 
         <div class="input-box">
@@ -41,7 +41,7 @@
 <script>
 document.getElementById('login-form').addEventListener('submit', async (e) => {
   e.preventDefault();
-  const username = document.getElementById('email').value;
+  const username = document.getElementById('username').value;
   const user_password = document.getElementById('password').value;
 
   try {
@@ -54,7 +54,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
     const data = await response.json();
     if (response.ok) {
       alert('Login exitoso');
-      window.location.href = '/admin-panel';
+      window.location.href = '/api/views/index';
     } else {
       alert(data.error);
     }
