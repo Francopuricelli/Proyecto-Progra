@@ -1,120 +1,108 @@
-
 let lista_carrito = [];
 
-
 export function agregarAlCarrito(producto_id, lista_juegos) {
+  console.log("funciona");
+  console.log(producto_id);
 
-    console.log("funciona");
-    console.log(producto_id);
-    
-    
-    const carritoGuardado = localStorage.getItem("carrito"); 
-    if (carritoGuardado) {
-        lista_carrito = JSON.parse(carritoGuardado);
-        console.log("carrito cargado");
-        
-    }
+  const carritoGuardado = localStorage.getItem("carrito");
+  if (carritoGuardado) {
+    lista_carrito = JSON.parse(carritoGuardado);
+    console.log("carrito cargado");
+  }
 
+  const productoExistente = lista_juegos.find(p => p.id === Number(producto_id));
+  if (!productoExistente) return;
 
-// como antes los prod. estaban hardcodeados, se podía comparar, ahora vienen del back, asi que hay que pasarlos a numeros para poder comparar ID
-    const productoExistente = lista_juegos.find(p => p.id === Number(producto_id)); 
-    if (!productoExistente) return;
+  const productoEnCarrito = lista_carrito.find(p => p.id === Number(producto_id));
 
-    const productoEnCarrito = lista_carrito.find(p => p.id === Number(producto_id));
+  if (productoEnCarrito) {
+    productoEnCarrito.cantidad += 1;
+  } else {
+    const productoParaCarrito = {
+      ...productoExistente,
+      cantidad: 1
+    };
+    lista_carrito.push(productoParaCarrito);
+  }
 
-    if (productoEnCarrito) {
-        productoEnCarrito.cantidad += 1; 
-    } else {
-        const productoParaCarrito = {
-            ...productoExistente,
-            cantidad: 1
-        };
-        productoParaCarrito.id;
-        lista_carrito.push(productoParaCarrito);
-    }
-
-    localStorage.setItem("carrito", JSON.stringify(lista_carrito));
-    renderizarCarrito();
+  localStorage.setItem("carrito", JSON.stringify(lista_carrito));
+  renderizarCarrito();
 }
 
+function renderizarCarrito() {
+  const divCarrito = document.getElementById("cart-items");
+  const totalElement = document.querySelector(".total-container");
+  if (!divCarrito) return;
 
+  const ul = document.createElement("ul");
+  divCarrito.innerHTML = "";
 
-function renderizarCarrito(){
-    const divCarrito = document.getElementById("cart-items");
-    const totalElement = document.querySelector(".total-container");
-    if (!divCarrito) return;
+  if (lista_carrito.length === 0) {
+    divCarrito.innerHTML = "<p>No hay elementos en el carrito.</p>";
+    totalElement.innerHTML = "<h3>Total: $0.00</h3>";
+    return;
+  }
 
-    const ul = document.createElement("ul");
-    divCarrito.innerHTML = "";
+  lista_carrito.forEach((item, index) => {
+    const li = document.createElement("li");
+    li.className = "li-items";
 
-    if (lista_carrito.length === 0) {
-        divCarrito.innerHTML = "<p>No hay elementos en el carrito.</p>";
-        totalElement.innerHTML = "<h3>Total: $0.00</h3>";
-        return;
-    }
+    li.innerHTML = `
+      <img class="cart-img" src="${item.imagen_url}" />
+      <div class="item-info">
+        <h3>${item.nombre}</h3>
+        <p>Plataforma: ${item.plataforma}</p>
+        <p>Precio: $${(item.precio * item.cantidad).toFixed(2)}</p>
+      </div>
+      <div class="item-actions">
+        <input type="number" min="1" value="${item.cantidad}" data-index="${index}" />
+        <span class="subtotal">$${(item.precio * item.cantidad).toFixed(2)}</span>
+        <button class="remove-btn" data-index="${index}">✕</button>
+      </div>
+    `;
 
-    lista_carrito.forEach((item, index) => {
-        const li = document.createElement("li");
-        li.className= "li-items";
+    ul.appendChild(li);
+  });
 
-        li.innerHTML = `
-           <img class="cart-img" src="${item.imagen_url} " />
-        <div class="item-info">
-          <h3>${item.nombre}</h3>
-          <p>Plataforma: ${item.plataforma}</p>
-          <p>Precio: $${(item.precio * item.cantidad).toFixed(2)}</p>
-        </div>
-        <div class="item-actions">
-          <input type="number" min="1" value="${item.cantidad}" data-index="${index}" />
-          <span class="subtotal">$${(item.precio * item.cantidad).toFixed(2)}</span>
-          <button class="remove-btn" data-index="${index}">✕</button>
-        </div>
-        `;
-        
-        ul.appendChild(li);
+  divCarrito.appendChild(ul);
+
+  const inputsCantidad = divCarrito.querySelectorAll("input[type='number']");
+  inputsCantidad.forEach(input => {
+    input.addEventListener("change", (e) => {
+      const index = e.target.dataset.index;
+      const nuevaCantidad = parseInt(e.target.value);
+      if (nuevaCantidad > 0) {
+        lista_carrito[index].cantidad = nuevaCantidad;
+        lista_carrito[index].subtotal = lista_carrito[index].precio * nuevaCantidad;
+        localStorage.setItem("carrito", JSON.stringify(lista_carrito));
+        renderizarCarrito();
+      }
     });
+  });
 
-    divCarrito.appendChild(ul);
+  const botonesEliminar = divCarrito.querySelectorAll(".remove-btn");
+  botonesEliminar.forEach((boton, index) => {
+    boton.addEventListener("click", () => {
+      if (lista_carrito[index].cantidad > 1) {
+        lista_carrito[index].cantidad--;
+      } else {
+        lista_carrito.splice(index, 1);
+      }
+      localStorage.setItem("carrito", JSON.stringify(lista_carrito));
+      renderizarCarrito();
+    });
+  });
 
-    // Escuchar cambios en cantidad
-    const inputsCantidad = divCarrito.querySelectorAll("input[type='number']");
-    inputsCantidad.forEach(input => {
-        input.addEventListener("change", (e) => {
-            const index = e.target.dataset.index; 
-            const nuevaCantidad = parseInt(e.target.value); 
-            if (nuevaCantidad > 0) {
-                lista_carrito[index].cantidad = nuevaCantidad;
-                lista_carrito[index].subtotal = lista_carrito[index].precio * nuevaCantidad;
-                localStorage.setItem("carrito", JSON.stringify(lista_carrito));
-                renderizarCarrito();
-            }
-        });
-    });
-
-    // Escuchar clicks en botones eliminar
-    const botonesEliminar = divCarrito.querySelectorAll(".remove-btn");
-    botonesEliminar.forEach((boton, index) => {
-        boton.addEventListener("click", (e) => {
-            if (lista_carrito[index].cantidad > 1) {
-                lista_carrito[index].cantidad--; // Reducir cantidad
-            } else {
-                lista_carrito.splice(index, 1); // Eliminar del array
-            }
-        localStorage.setItem("carrito", JSON.stringify(lista_carrito)); // ACTUALIZAR siempre
-        renderizarCarrito(); 
-    });
-});
-    // Calcular el total
-    let total = 0;
-    lista_carrito.forEach(juego => {
-        total += juego.precio * juego.cantidad;
-    });
-    totalElement.innerHTML = `<h3>Total: $${total.toFixed(2)}</h3>`;
-};
+  let total = 0;
+  lista_carrito.forEach(juego => {
+    total += juego.precio * juego.cantidad;
+  });
+  totalElement.innerHTML = `<h3>Total: $${total.toFixed(2)}</h3>`;
+}
 
 function recuperarCarrito() {
-    const carritoGuardado = localStorage.getItem("carrito");
-    lista_carrito = carritoGuardado ? JSON.parse(carritoGuardado) : [];
+  const carritoGuardado = localStorage.getItem("carrito");
+  lista_carrito = carritoGuardado ? JSON.parse(carritoGuardado) : [];
 }
 
 async function confirmarCompra() {
@@ -124,13 +112,18 @@ async function confirmarCompra() {
   }
 
   const user_id = 1;
+  let total = 0;
+  for(const producto of lista_carrito) {
+    total += producto.precio * producto.cantidad;
+  }
 
   const venta = {
-    user_id: user_id,
-    productos: lista_carrito.map((item) => ({
-      product_id: item.id,
-      cantidad: item.cantidad,
-      precio: item.precio
+    userId: user_id,
+    total: total,
+    productos: lista_carrito.map((producto) => ({
+      product_id: producto.id,
+      cantidad: producto.cantidad,
+      precio: producto.precio
     }))
   };
 
@@ -142,9 +135,9 @@ async function confirmarCompra() {
     });
 
     if (response.ok) {
-      alert("¡Compra realizada con éxito!");
+      alert("Compra realizada con éxito!");
       limpiarCarrito();
-      window.location.href = "/ticket.html"; 
+      window.location.href = "/ticket.html";
     } else {
       const data = await response.json();
       alert("Error al registrar la compra: " + (data.error || "Desconocido"));
@@ -156,12 +149,18 @@ async function confirmarCompra() {
 }
 
 
-
 function limpiarCarrito() {
-    lista_carrito = [];
-    localStorage.removeItem("carrito");
-    renderizarCarrito();
+  lista_carrito = [];
+  localStorage.removeItem("carrito");
+  renderizarCarrito();
 }
-// Recuperar el carrito guardado al cargar la página
+
+// Inicializar
 recuperarCarrito();
 renderizarCarrito();
+
+
+const botonConfirmar = document.getElementById("botonConfirmar");
+if (botonConfirmar) {
+  botonConfirmar.addEventListener("click", confirmarCompra);
+}

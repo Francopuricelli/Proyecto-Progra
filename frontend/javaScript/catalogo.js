@@ -75,7 +75,7 @@ platformSelect.addEventListener("change", () => {
 const adminLink = document.querySelector('.admin-link');
 adminLink.addEventListener('click', (e) => {
   e.preventDefault();
-  window.location.href = 'http://localhost:3000/admin-login';
+  window.location.href = 'http://localhost:3000/api/views/admin-login';
 });
 
   const toggle = document.getElementById("themeToggle");
