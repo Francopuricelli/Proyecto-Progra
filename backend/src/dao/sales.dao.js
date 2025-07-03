@@ -1,5 +1,7 @@
 import Sale from "../models/sales.js";
+import User from "../models/user.js";
 import SaleItem from "../models/salesItem.js";
+import Product from "../models/product.js";
 
 const SaleDao = {
   async create(saleData) {
@@ -18,7 +20,28 @@ const SaleDao = {
 
     return sale;
   },
-
+  
+   async getById(id) {
+    return await Sale.findByPk(id, {
+      include: [
+        {
+          model: User,
+          as: "user",
+          attributes: ['username']
+        },
+        {
+          model: SaleItem,
+          as: "items",
+          include: [  {
+            model: Product,
+            as: "product" 
+          }
+        ]
+          
+        }
+      ]
+    });
+  },
   async getAll() {
     return await Sale.findAll({
       include: [

@@ -20,6 +20,7 @@ const SaleItem = sequelize.define("SaleItem", {
 },
 {
   tableName: 'salesItems', // nombre de la tabla real en MySQL
+  timestamps: false,
 });
 
 // Relaciones

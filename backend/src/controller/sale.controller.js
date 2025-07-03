@@ -1,4 +1,7 @@
 import SaleDao from "../dao/sales.dao.js";
+import User from '../models/user.js';
+import SaleItem from '../models/salesItem.js';
+import Product from '../models/product.js';
 
 const SaleController = {
   async create(req, res) {
@@ -18,7 +21,34 @@ const SaleController = {
     } catch (error) {
       res.status(500).json({ error: "Error al obtener ventas" });
     }
-  }
+  },
+
+  async getById(req, res) {
+  const { id } = req.params;
+
+  const venta = await SaleDao.getById(id, {
+    include: [
+      { model: User, attributes: ['username'] },
+      {
+        model: SaleItem,
+        include: [{ model: Product, attributes: ['nombre'] }]
+      }
+    ]
+  });
+
+  if (!venta) return res.status(404).json({ error: "Venta no encontrada" });
+
+  res.json({
+    user: venta.user,
+    productos: venta.items.map(item => ({
+      producto: item.product,
+      cantidad: item.cantidad,
+      subtotal: item.subtotal
+    }))
+  });
+}
 };
+
+
 
 export default SaleController;

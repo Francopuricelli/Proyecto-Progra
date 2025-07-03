@@ -134,10 +134,11 @@ async function confirmarCompra() {
       body: JSON.stringify(venta)
     });
 
+    const data = await response.json();
     if (response.ok) {
       alert("Compra realizada con éxito!");
       limpiarCarrito();
-      window.location.href = "/ticket.html";
+      window.location.href = `/ticket.html?ventaId=${data.id}`;
     } else {
       const data = await response.json();
       alert("Error al registrar la compra: " + (data.error || "Desconocido"));

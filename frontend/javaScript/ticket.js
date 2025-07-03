@@ -1,44 +1,41 @@
 let lista_comprados= [];
 
-function renderCompras(){
-    document.getElementById("fechaCompra").textContent = new Date().toLocaleDateString("es-AR");
-    
+async function renderCompras() {
+  const ventaId = new URLSearchParams(window.location.search).get("ventaId");
 
-    const carritoGuardado = localStorage.getItem("carrito"); 
-    if (carritoGuardado) {
-        lista_comprados = JSON.parse(carritoGuardado);
-    }    
-    
-    
-    const contenedor = document.getElementById("detalleTicket");
+  if (!ventaId) {
+    alert("Venta no encontrada");
+    return;
+  }
 
-    const totalContenedor = document.getElementById("totalTicket");
-    
-    let total = 0;
+  const response = await fetch(`/api/sales/${ventaId}`);
+  const data = await response.json();
 
-    lista_comprados.forEach(producto => {
-        const fila = document.createElement("tr")
-        let subtotal = producto.precio * producto.cantidad
-        fila.innerHTML=`
-        <td class="col">${producto.nombre}</td>
-        <td class="col">${producto.cantidad}</td>
-        <td class="col">$ ${subtotal}</td>
+  const { user, productos } = data;
+  document.getElementById("nombreCliente").textContent = user.username;
+  document.getElementById("fechaCompra").textContent = new Date().toLocaleDateString("es-AR");
 
-        `
-        total = total + subtotal;
-        totalContenedor.innerHTML=`$ ${total}`
+  let total = 0;
+  const ticketbody = document.getElementById("detalleTicket");
+  const totalContenedor = document.getElementById("totalTicket");
 
-        console.log(producto.nombre);
-        console.log(producto.cantidad); 
-        console.log(producto.precio);
-    
-        contenedor.appendChild(fila);
-        
-        
+  productos.forEach((item) => {
+    const fila = document.createElement("tr");
+    const subtotal = item.subtotal;
 
-    });
+    fila.innerHTML = `
+      <td>${item.producto.nombre}</td>
+      <td>${item.cantidad}</td>
+      <td>$${subtotal.toFixed(2)}</td>
+    `;
 
+    total += subtotal;
+    ticketbody.appendChild(fila);
+  });
+
+  totalContenedor.textContent = `$${total.toFixed(2)}`;
 }
+
 
 async function descargarTicket() {
     const ticketDiv = document.querySelector(".recibo-main");
@@ -67,11 +64,5 @@ async function descargarTicket() {
     pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
     pdf.save("ticket.pdf");
 }
-
-
-const nombreCliente = localStorage.getItem("username")
-
-const nombreDiv= document.getElementById("nombreCliente");
-nombreDiv.innerHTML = nombreCliente;
 
 renderCompras();
