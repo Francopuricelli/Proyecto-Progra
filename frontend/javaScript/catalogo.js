@@ -2,25 +2,31 @@ import { agregarAlCarrito } from "./carrito.js";
 
 
 let catalogo = [];
+const limitePaginacion= 8;
+let paginaActual = 1;
+let totalProductos = 0;
 
-const getData = async (url) => {
-    let response = await fetch(url);
-    const data = await response.json();
-    catalogo = data;
-    console.log(catalogo);
-    renderCatalogo(catalogo);
+const getData = async (pagina) => {
+  const offset = pagina-1;
+  const response = await fetch(`http://localhost:3000/api/products?limit=${limitePaginacion}&offset=${offset}`);
+  const data = await response.json();
+
+  catalogo = data.products;
+  totalProductos = data.total;
+  paginaActual = pagina;
+
+  renderCatalogo(catalogo);
+  renderPaginacion();
 }
 
-getData('http://localhost:3000/api/products');
-
-
+getData(paginaActual);
 
 function renderCatalogo(catalogo){
 
   const juegosDiv = document.getElementById("productCards");
-  const dlcsDiv = document.getElementById("packCards");
+  
   juegosDiv.innerHTML = "";
-  dlcsDiv.innerHTML = "";
+
 
   catalogo.forEach((juego) => {
     const { id, nombre, tipo, plataforma, precio, imagen_url } = juego;
@@ -41,16 +47,51 @@ function renderCatalogo(catalogo){
         </div>
       </div>`;
 
-    if (tipo.toLowerCase() === "videojuego") {
       juegosDiv.insertAdjacentHTML("beforeend", cardHtml);
-    } else if (tipo.toLowerCase() === "dlc" || tipo.toLowerCase() === "pack") {
-      dlcsDiv.insertAdjacentHTML("beforeend", cardHtml);
-    }
+    
   });
 }
     
+function renderPaginacion() {
+  const pagContainer = document.getElementById("paginacion");
+  pagContainer.innerHTML = "";
+
+  const totalPaginas = Math.ceil(totalProductos / limitePaginacion);
+  
+  
+  
+  if (paginaActual < totalPaginas) {
+    const btnSiguiente = document.createElement("button");
+    btnSiguiente.textContent = "→";
+    btnSiguiente.className = "btn btn-outline-light btn-sm me-2";
+    btnSiguiente.onclick = () => getData(paginaActual + 1);
+    pagContainer.appendChild(btnSiguiente);
+  }
+
+  // Botones numerados
+  for (let i = 1; i <= totalPaginas; i++) {
+    const btn = document.createElement("button");
+    btn.textContent = i;
+    btn.classList.add("btn", "btn-sm", "me-2", i === paginaActual ? "btn-warning" : "btn-outline-light");
+
+    btn.addEventListener("click", () => {
+      getData(i);
+    });
+
+    pagContainer.appendChild(btn);
+  }
+
+  // Botón anterior (último en la fila)
+  if (paginaActual > 1) {
+    const btnAnterior = document.createElement("button");
+    btnAnterior.textContent = "←";
+    btnAnterior.className = "btn btn-outline-light btn-sm";
+    btnAnterior.onclick = () => getData(paginaActual - 1);
+    pagContainer.appendChild(btnAnterior); // ← ¡Lo agregás último!
+  }
+}
     
-    
+
 
 //llamada a ids/clases
 const searchInput = document.querySelector(".searchInput");
@@ -110,13 +151,7 @@ document.getElementById("productCards").addEventListener("click", (e) => {
         mostrarAlerta("Producto agregado al carrito");
     }
 });
-document.getElementById("packCards").addEventListener("click", (e) => {
-    if (e.target.classList.contains("agregar-carrito")) {
-        const productoId = e.target.getAttribute("data-id");
-        agregarAlCarrito(productoId, catalogo);
-        mostrarAlerta("Producto agregado al carrito");
-    }
-});
+
 
 
 

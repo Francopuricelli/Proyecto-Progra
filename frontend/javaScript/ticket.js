@@ -2,16 +2,24 @@ let lista_comprados= [];
 
 async function renderCompras() {
   const ventaId = new URLSearchParams(window.location.search).get("ventaId");
-
+  const response = await fetch(`/api/sales/${ventaId}`);
+  
   if (!ventaId) {
     alert("Venta no encontrada");
     return;
-  }
 
-  const response = await fetch(`/api/sales/${ventaId}`);
+}
+  if (response.status == 200){
+
+    
+  const idFactura = document.getElementById("idFactura")
+  idFactura.textContent= "Factura N°" + ventaId;
+
   const data = await response.json();
 
   const { user, productos } = data;
+  
+  
   document.getElementById("nombreCliente").textContent = user.username;
   document.getElementById("fechaCompra").textContent = new Date().toLocaleDateString("es-AR");
 
@@ -34,6 +42,13 @@ async function renderCompras() {
   });
 
   totalContenedor.textContent = `$${total.toFixed(2)}`;
+} else{
+  alert("Esta venta no existe");
+  window.location.href = `/home.html`;
+
+}
+
+;
 }
 
 
@@ -64,5 +79,13 @@ async function descargarTicket() {
     pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
     pdf.save("ticket.pdf");
 }
+
+const btnGoBack = document.getElementById("goBack");
+btnGoBack.addEventListener("click", ()=> {
+  
+  window.location.href = `/home.html`;
+
+
+})
 
 renderCompras();

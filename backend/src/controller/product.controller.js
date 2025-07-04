@@ -2,9 +2,14 @@ import ProductDao from "../dao/product.dao.js";
 
 const ProductController = {
   async getAll(req, res) {
-    try {
-      const products = await ProductDao.getAll();
-      res.json(products);
+    const { limit, offset } = req.query;
+
+  try {
+    const products = await ProductDao.getAll(Number(limit), Number(offset));
+    const total = await ProductDao.countAll();
+
+    res.status(200).json({products,total});
+
     } catch (err) {
       res.status(500).json({ error: "Error obteniendo productos" });
     }

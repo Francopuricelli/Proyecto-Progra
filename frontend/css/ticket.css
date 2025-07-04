@@ -60,8 +60,20 @@ h5, h3, h1, h2, th, td {
   background-color: #C28C17;
   border: none;
   font-weight: bold;
+  margin-right: 15px;
 }
 
 .btn-warning:hover {
+  background-color: #dba126;
+}
+.btn-goBack {
+  background-color: transparent;
+  color: white;
+  border: 1px solid #fff;
+  margin-left: 15px;
+ 
+}
+
+.btn-goBack:hover {
   background-color: #dba126;
 }
