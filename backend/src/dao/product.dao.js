@@ -1,16 +1,22 @@
 import Product from '../models/product.js';
 
 const ProductDao = {
-  async getAll(limite, offset) {
+  async getAllByPage(limite, offset) {
 
     
     const products = await Product.findAll({limit: limite, offset : offset*limite});
     return products;
   },
 
+  async getAll() {
+    const products = await Product.findAll({ where: { activo: true } });
+    return products;
+  },
+
   async countAll() {
     return await Product.count({ where: { activo: true } });
   },
+
   async getById(id) {
     const product = await Product.findByPk(id);
     return product;

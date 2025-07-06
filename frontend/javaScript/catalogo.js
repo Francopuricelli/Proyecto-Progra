@@ -1,25 +1,36 @@
 import { agregarAlCarrito } from "./carrito.js";
 
+let catalogoCompleto = [];
 
-let catalogo = [];
+let catalogoPaginado = [];
 const limitePaginacion= 8;
 let paginaActual = 1;
 let totalProductos = 0;
 
-const getData = async (pagina) => {
+const getData = async (url) => {
+  const response = await fetch(url);
+  const data = await response.json();
+  catalogoCompleto = data;
+  console.log(catalogoCompleto);
+  
+};
+
+const getPaginedData = async (pagina) => {
   const offset = pagina-1;
   const response = await fetch(`http://localhost:3000/api/products?limit=${limitePaginacion}&offset=${offset}`);
   const data = await response.json();
 
-  catalogo = data.products;
-  totalProductos = data.total;
+  catalogoPaginado = data.products;
+  totalProductos = data.total; //
   paginaActual = pagina;
 
-  renderCatalogo(catalogo);
+  //console.log(catalogoPaginado);
+
+  renderCatalogo(catalogoPaginado);
   renderPaginacion();
 }
-
-getData(paginaActual);
+getData(`http://localhost:3000/api/products/all`); 
+getPaginedData(paginaActual); 
 
 function renderCatalogo(catalogo){
 
@@ -57,14 +68,14 @@ function renderPaginacion() {
   pagContainer.innerHTML = "";
 
   const totalPaginas = Math.ceil(totalProductos / limitePaginacion);
-  
-  
+
+
   
   if (paginaActual < totalPaginas) {
     const btnSiguiente = document.createElement("button");
     btnSiguiente.textContent = "→";
     btnSiguiente.className = "btn btn-outline-light btn-sm me-2";
-    btnSiguiente.onclick = () => getData(paginaActual + 1);
+    btnSiguiente.onclick = () => getPaginedData(paginaActual + 1);
     pagContainer.appendChild(btnSiguiente);
   }
 
@@ -75,7 +86,7 @@ function renderPaginacion() {
     btn.classList.add("btn", "btn-sm", "me-2", i === paginaActual ? "btn-warning" : "btn-outline-light");
 
     btn.addEventListener("click", () => {
-      getData(i);
+      getPaginedData(i);
     });
 
     pagContainer.appendChild(btn);
@@ -86,32 +97,50 @@ function renderPaginacion() {
     const btnAnterior = document.createElement("button");
     btnAnterior.textContent = "←";
     btnAnterior.className = "btn btn-outline-light btn-sm";
-    btnAnterior.onclick = () => getData(paginaActual - 1);
-    pagContainer.appendChild(btnAnterior); // ← ¡Lo agregás último!
+    btnAnterior.onclick = () => getPaginedData(paginaActual - 1);
+    pagContainer.appendChild(btnAnterior); // !
   }
 }
-    
+
 
 
 //llamada a ids/clases
 const searchInput = document.querySelector(".searchInput");
-const platformSelect = document.getElementById("consola")
-
-
+const platformSelect = document.getElementById("consola");
+const typeSelect = document.getElementById("tipo");
+const priceSelect = document.getElementById("precio");
 // AddEventListeners
 searchInput.addEventListener("keyup", () => {
-  filterByName(catalogo);
+  filterByName(catalogoCompleto);
 });
 
 platformSelect.addEventListener("change", () => {
   if (platformSelect.value != 'all') {
-    filterByPlatform(catalogo); 
+    filterByPlatform(catalogoCompleto); 
   }else{
     document.getElementById("productCards").innerHTML = "";
-    renderCatalogo(catalogo)
+    renderCatalogo(catalogoCompleto);
     
   }
 });
+
+// typeSelect.addEventListener("change", () => {
+//   if (typeSelect.value != 'all') {
+//     filterByType(catalogoCompleto);
+//   } else {
+//     document.getElementById("productCards").innerHTML = "";
+//     renderCatalogo(catalogoCompleto);
+//   }
+// });
+
+// priceSelect.addEventListener("change", () => {
+//   if (priceSelect.value != 'all') {
+//     filterByPrice(catalogoCompleto);
+//   } else {
+//     document.getElementById("productCards").innerHTML = "";
+//     renderCatalogo(catalogoPaginado);
+//   }
+// });
 
 const adminLink = document.querySelector('.admin-link');
 adminLink.addEventListener('click', (e) => {
@@ -147,7 +176,7 @@ adminLink.addEventListener('click', (e) => {
 document.getElementById("productCards").addEventListener("click", (e) => {
     if (e.target.classList.contains("agregar-carrito")) {
         const productoId = e.target.getAttribute("data-id");
-        agregarAlCarrito(productoId, catalogo);
+        agregarAlCarrito(productoId, catalogoCompleto);
         mostrarAlerta("Producto agregado al carrito");
     }
 });
@@ -184,7 +213,21 @@ function filterByType(juegos) {
     document.getElementById("productCards").innerHTML = ""; 
     renderCatalogo(resultadoFiltrado);
 } 
+function filterByPrice(juegos) {
+  const precio = document.getElementById("precio").value;
+  let resultadoFiltrado = [];
 
+  if (precio === "0-30") {
+    resultadoFiltrado = juegos.filter(juego => juego.precio > 0 && juego.precio <= 30);
+  } else if (precio === "30-70") {
+    resultadoFiltrado = juegos.filter(juego => juego.precio > 30 && juego.precio <= 70);
+  } else {
+    resultadoFiltrado = juegos;
+  }
+
+  document.getElementById("productCards").innerHTML = "";
+  renderCatalogo(resultadoFiltrado);
+}
 
 function mostrarAlerta(mensaje) {
   const contenedor = document.getElementById("alert-container");

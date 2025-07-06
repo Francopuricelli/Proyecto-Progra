@@ -2,7 +2,9 @@ import { Router } from "express";
 import ProductController from "../controller/product.controller.js";
 const router = Router();
 
-router.get('/', ProductController.getAll);
+router.get('/', ProductController.getAllByPage);
+
+router.get('/all', ProductController.getAll); // Endpoint to get all products without pagination
 
 router.get('/:id', ProductController.getById);
 
