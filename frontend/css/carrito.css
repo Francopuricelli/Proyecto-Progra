@@ -1,18 +1,39 @@
+:root {
+  --color-navbar: #E4E2DD;
+  --color-bg: #223440;
+  --color-texto-rojo: #9B2915;
+  --color-boton: #C28C17;
+  --color-texto: #ffffff;
+  --color-card-bg: #1c2a35;
+  --color-secundario: #ccc;
+}
+
+[data-theme="light"] {
+  --color-navbar: #ffffff;
+  --color-bg: #F4F2EE;
+  --color-texto-rojo: #BF3C2C;
+  --color-boton: #C28C17;
+  --color-texto: #222222;
+  --color-card-bg: #ffffff;
+  --color-secundario: #444444;
+}
+
+
 body {
   margin: 0;
   font-family: 'Clash Display', sans-serif;
-  background-color: #223440;
-  color: #fff;
+  background-color: var(--color-bg);
+  color: var(--color-texto);
 }
 
 /* NAVBAR */
 .navbar {
-  background-color: #E4E2DD;
+  background-color: var(--color-navbar);
   padding: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 2px solid var(--color-secundario);
 }
 
 .navbar .container {
@@ -53,7 +74,7 @@ body {
 .li-items {
   display: flex;
   align-items: center;
-  background-color: #1e2f3a;
+  background-color:var(--color-card-bg);
   border-radius: 12px;
   padding: 1rem;
   margin-bottom: 1.2rem;
@@ -109,14 +130,14 @@ body {
 
 .li-items .subtotal {
   font-weight: bold;
-  color: #C28C17;
+  color: var(--color-boton);
 }
 
 .li-items .remove-btn {
   background: none;
   border: none;
   font-size: 1.3rem;
-  color: #9B2915;
+  color: var(--color-texto-rojo);
   cursor: pointer;
 }
 
@@ -129,7 +150,7 @@ body {
   flex: 1;
   position: sticky;
   top: 120px;
-  background-color: #1c2a35;
+  background-color: var(--color-card-bg);
   padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
@@ -149,7 +170,7 @@ body {
   font-size: 1.2rem;
   font-weight: bold;
   margin: 1rem 0;
-  color: #C28C17;
+  color: var(--color-boton);
 }
 
 .confirm-btn, .clear-cart {
@@ -164,8 +185,8 @@ body {
 }
 
 .confirm-btn {
-  background-color: #C28C17;
-  color: white;
+  background-color: var(--color-boton);
+  color:var(--color-texto);
 }
 
 .confirm-btn:hover {
@@ -174,11 +195,11 @@ body {
 
 .clear-cart {
   background-color: transparent;
-  color: white;
+  color:var(--color-texto);
   border: 1px solid #fff;
 }
 
 .clear-cart:hover {
   background-color: #fff;
-  color: #223440;
+  color: var(--color-texto);
 }

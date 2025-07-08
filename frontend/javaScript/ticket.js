@@ -17,10 +17,10 @@ async function renderCompras() {
 
   const data = await response.json();
 
-  const { user, productos } = data;
+  const { usuario, productos } = data;
   
   
-  document.getElementById("nombreCliente").textContent = user.username;
+  document.getElementById("nombreCliente").textContent = usuario.username;
   document.getElementById("fechaCompra").textContent = new Date().toLocaleDateString("es-AR");
 
   let total = 0;

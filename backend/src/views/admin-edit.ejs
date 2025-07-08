@@ -82,31 +82,31 @@
 </body>
 
 <script>
-   const editProductForm = document.getElementById('edit-product');
+   const formEditarProducto = document.getElementById('edit-product');
 
-editProductForm.addEventListener("submit", async (e) => {
+formEditarProducto.addEventListener("submit", async (e) => {
   e.preventDefault(); 
 
-  const productId = editProductForm.dataset.id;
+  const productoId = formEditarProducto.dataset.id;
 
-  const productName = document.getElementById('nombre').value;
-  const productPrice = parseFloat(document.getElementById('precio').value);
-  const productStock = parseInt(document.getElementById('stock').value);
-  const productPlatform = document.getElementById('plataforma').value;
+  const productoName = document.getElementById('nombre').value;
+  const productoPrice = parseFloat(document.getElementById('precio').value);
+  const productoStock = parseInt(document.getElementById('stock').value);
+  const productoPlatform = document.getElementById('plataforma').value;
 
 
-  const updatedProduct = {
-    nombre: productName,
-    precio: productPrice,
-    stock: productStock,
-    plataforma: productPlatform
+  const updatedProducto = {
+    nombre: productoName,
+    precio: productoPrice,
+    stock: productoStock,
+    plataforma: productoPlatform
   };
 
   try {
-    const response = await fetch(`/api/products/${productId}`, {
+    const response = await fetch(`/api/products/${productoId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(updatedProduct)
+      body: JSON.stringify(updatedProducto)
     });
 
     const data = await response.json();

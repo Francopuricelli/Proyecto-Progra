@@ -1,8 +1,6 @@
 let lista_carrito = [];
 
 export function agregarAlCarrito(producto_id, lista_juegos) {
-  console.log("funciona");
-  console.log(producto_id);
 
   const carritoGuardado = localStorage.getItem("carrito");
   if (carritoGuardado) {
@@ -31,7 +29,7 @@ export function agregarAlCarrito(producto_id, lista_juegos) {
 
 function renderizarCarrito() {
   const divCarrito = document.getElementById("cart-items");
-  const totalElement = document.querySelector(".total-container");
+  const totalElemento = document.querySelector(".total-container");
   if (!divCarrito) return;
 
   const ul = document.createElement("ul");
@@ -39,7 +37,7 @@ function renderizarCarrito() {
 
   if (lista_carrito.length === 0) {
     divCarrito.innerHTML = "<p>No hay elementos en el carrito.</p>";
-    totalElement.innerHTML = "<h3>Total: $0.00</h3>";
+    totalElemento.innerHTML = "<h3>Total: $0.00</h3>";
     return;
   }
 
@@ -97,7 +95,7 @@ function renderizarCarrito() {
   lista_carrito.forEach(juego => {
     total += juego.precio * juego.cantidad;
   });
-  totalElement.innerHTML = `<h3>Total: $${total.toFixed(2)}</h3>`;
+  totalElemento.innerHTML = `<h3>Total: $${total.toFixed(2)}</h3>`;
 }
 
 function recuperarCarrito() {
@@ -164,4 +162,8 @@ renderizarCarrito();
 const botonConfirmar = document.getElementById("botonConfirmar");
 if (botonConfirmar) {
   botonConfirmar.addEventListener("click", confirmarCompra);
+}
+const botonLimpiar = document.getElementById("limpiarCarrito");
+if (botonLimpiar) {
+  botonLimpiar.addEventListener("click", limpiarCarrito);
 }

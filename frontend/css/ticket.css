@@ -7,10 +7,28 @@
   src: url('../assets/fonts/Nippo-Variable.ttf');
 }
 
+:root {
+  --color-bg: #223440;
+  --color-texto-rojo: #9B2915;
+  --color-boton: #C28C17;
+  --color-texto: #ffffff;
+  --color-card-bg: #1c2a35;
+  --color-secundario: #ccc;
+}
+
+[data-theme="light"] {
+  --color-bg: #F4F2EE;
+  --color-texto-rojo: #BF3C2C;
+  --color-boton: #C28C17;
+  --color-texto: #222222;
+  --color-card-bg: #ffffff;
+  --color-secundario: #444444;
+}
+
 body {
-  background: #223440;
+  background: var(--color-bg);
   font-family: 'Clash Display', sans-serif;
-  color: white;
+  color: var(--color-texto);
   margin-top: 40px;
 }
 
@@ -19,14 +37,14 @@ h5, h3, h1, h2, th, td {
 }
 
 .recibo-main {
-  background: #1c2a35;
+  background: var(--color-card-bg);
   border-bottom: 12px solid #1c1c1c;
-  border-top: 12px solid #9B2915;
+  border-top: 12px solid var(--color-texto-rojo);
   box-shadow: 0 1px 21px rgba(0,0,0,0.2);
   padding: 40px 30px;
   margin: auto;
   max-width: 700px;
-  color: #ffffff;
+  color: var(--color-texto);
 }
 
 .recibo-header,
@@ -49,7 +67,7 @@ h5, h3, h1, h2, th, td {
 }
 
 .text-danger strong {
-  color: #C28C17;
+  color: var(--color-boton);
 }
 
 .btn-container{ 
@@ -57,7 +75,7 @@ h5, h3, h1, h2, th, td {
   margin: 2rem 0;
 }
 .btn-warning {
-  background-color: #C28C17;
+  background-color: var(--color-boton);
   border: none;
   font-weight: bold;
   margin-right: 15px;
@@ -68,7 +86,7 @@ h5, h3, h1, h2, th, td {
 }
 .btn-goBack {
   background-color: transparent;
-  color: white;
+  color: var(--color-texto);
   border: 1px solid #fff;
   margin-left: 15px;
  

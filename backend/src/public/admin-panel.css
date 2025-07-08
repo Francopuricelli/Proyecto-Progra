@@ -21,7 +21,10 @@ body {
   
 }
 
+.container {
+  padding: 20px;
 
+}
 .admin-navbar {
   background: #E4E2DD;
   padding: 1rem 2rem;

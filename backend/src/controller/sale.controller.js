@@ -39,7 +39,7 @@ const SaleController = {
   if (!venta) return res.status(404).json({ error: "Venta no encontrada" });
 
   res.json({
-    user: venta.user,
+    usuario: venta.user,
     productos: venta.items.map(item => ({
       producto: item.product,
       cantidad: item.cantidad,

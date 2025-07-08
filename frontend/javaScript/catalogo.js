@@ -15,7 +15,7 @@ const getData = async (url) => {
   
 };
 
-const getPaginedData = async (pagina) => {
+const getDataPaginada = async (pagina) => {
   const offset = pagina-1;
   const response = await fetch(`http://localhost:3000/api/products?limit=${limitePaginacion}&offset=${offset}`);
   const data = await response.json();
@@ -24,13 +24,11 @@ const getPaginedData = async (pagina) => {
   totalProductos = data.total; //
   paginaActual = pagina;
 
-  //console.log(catalogoPaginado);
-
   renderCatalogo(catalogoPaginado);
   renderPaginacion();
 }
 getData(`http://localhost:3000/api/products/all`); 
-getPaginedData(paginaActual); 
+getDataPaginada(paginaActual); 
 
 function renderCatalogo(catalogo){
 
@@ -64,59 +62,66 @@ function renderCatalogo(catalogo){
 }
     
 function renderPaginacion() {
-  const pagContainer = document.getElementById("paginacion");
-  pagContainer.innerHTML = "";
+  const pagContenedor = document.getElementById("paginacion");
+  pagContenedor.innerHTML = "";
 
   const totalPaginas = Math.ceil(totalProductos / limitePaginacion);
 
 
   
   if (paginaActual < totalPaginas) {
+
     const btnSiguiente = document.createElement("button");
     btnSiguiente.textContent = "→";
-    btnSiguiente.className = "btn btn-outline-light btn-sm me-2";
-    btnSiguiente.onclick = () => getPaginedData(paginaActual + 1);
-    pagContainer.appendChild(btnSiguiente);
+    btnSiguiente.className = "btn-paginacion btn-sm me-2";
+    btnSiguiente.onclick = () => getDataPaginada(paginaActual + 1);
+    pagContenedor.appendChild(btnSiguiente);
   }
 
   // Botones numerados
   for (let i = 1; i <= totalPaginas; i++) {
     const btn = document.createElement("button");
     btn.textContent = i;
-    btn.classList.add("btn", "btn-sm", "me-2", i === paginaActual ? "btn-warning" : "btn-outline-light");
+    btn.classList.add("btn-paginacion");
+
+     if (i === paginaActual) {
+    btn.style.backgroundColor = "var(--color-boton)";
+    btn.style.color = "#fff";
+    btn.style.border = "none";
+  }
 
     btn.addEventListener("click", () => {
-      getPaginedData(i);
+      getDataPaginada(i);
     });
 
-    pagContainer.appendChild(btn);
+    pagContenedor.appendChild(btn);
   }
 
   // Botón anterior (último en la fila)
   if (paginaActual > 1) {
     const btnAnterior = document.createElement("button");
     btnAnterior.textContent = "←";
-    btnAnterior.className = "btn btn-outline-light btn-sm";
-    btnAnterior.onclick = () => getPaginedData(paginaActual - 1);
-    pagContainer.appendChild(btnAnterior); // !
+    btnAnterior.className = "btn-paginacion btn-sm";
+    btnAnterior.onclick = () => getDataPaginada(paginaActual - 1);
+    pagContenedor.appendChild(btnAnterior); // !
   }
 }
 
 
 
 //llamada a ids/clases
-const searchInput = document.querySelector(".searchInput");
+const inputBuscar = document.querySelector(".searchInput");
 const platformSelect = document.getElementById("consola");
 const typeSelect = document.getElementById("tipo");
 const priceSelect = document.getElementById("precio");
 // AddEventListeners
-searchInput.addEventListener("keyup", () => {
-  filterByName(catalogoCompleto);
+inputBuscar.addEventListener("keyup", () => {
+  filtrarPorNombre(catalogoCompleto);
 });
 
 platformSelect.addEventListener("change", () => {
   if (platformSelect.value != 'all') {
-    filterByPlatform(catalogoCompleto); 
+    filtrarPorPlataforma(catalogoCompleto); 
   }else{
     document.getElementById("productCards").innerHTML = "";
     renderCatalogo(catalogoCompleto);
@@ -126,7 +131,7 @@ platformSelect.addEventListener("change", () => {
 
 // typeSelect.addEventListener("change", () => {
 //   if (typeSelect.value != 'all') {
-//     filterByType(catalogoCompleto);
+//     filtrarPorTipo(catalogoCompleto);
 //   } else {
 //     document.getElementById("productCards").innerHTML = "";
 //     renderCatalogo(catalogoCompleto);
@@ -135,7 +140,7 @@ platformSelect.addEventListener("change", () => {
 
 // priceSelect.addEventListener("change", () => {
 //   if (priceSelect.value != 'all') {
-//     filterByPrice(catalogoCompleto);
+//     filtrarPorPrecio(catalogoCompleto);
 //   } else {
 //     document.getElementById("productCards").innerHTML = "";
 //     renderCatalogo(catalogoPaginado);
@@ -148,26 +153,26 @@ adminLink.addEventListener('click', (e) => {
   window.location.href = 'http://localhost:3000/api/views/admin-login';
 });
 
-  const toggle = document.getElementById("themeToggle");
+  const alternarTema = document.getElementById("themeToggle");
 
-  toggle.addEventListener("click", () => {
+  alternarTema.addEventListener("click", () => {
     const html = document.documentElement;
-    const currentTheme = html.getAttribute("data-theme") || "light";
-    const nextTheme = currentTheme === "dark" ? "light" : "dark";
-    html.setAttribute("data-theme", nextTheme);
-    localStorage.setItem("theme", nextTheme);
+    const temaActual = html.getAttribute("data-theme") || "light";
+    const siguienteTema = temaActual === "dark" ? "light" : "dark";
+    html.setAttribute("data-theme", siguienteTema);
+    localStorage.setItem("theme", siguienteTema);
 
 
-    toggle.innerHTML = nextTheme === "dark"
+    alternarTema.innerHTML = siguienteTema === "dark"
       ? '<i class="fa-solid fa-sun"></i>'
       : '<i class="fa-solid fa-moon"></i>';
   });
 
 
   window.addEventListener("DOMContentLoaded", () => {
-    const savedTheme = localStorage.getItem("theme") || "light";
-    document.documentElement.setAttribute("data-theme", savedTheme);
-    toggle.innerHTML = savedTheme === "dark"
+    const temaGuardado = localStorage.getItem("theme") || "light";
+    document.documentElement.setAttribute("data-theme", temaGuardado);
+    alternarTema.innerHTML = temaGuardado === "dark"
       ? '<i class="fa-solid fa-sun"></i>'
       : '<i class="fa-solid fa-moon"></i>';
   });
@@ -187,33 +192,33 @@ document.getElementById("productCards").addEventListener("click", (e) => {
 
 
   //FUNCIONES FILTRAR
-function filtrarAny(arr, filtro,key) {
+function filtrar(arr, filtro,key) {
     return arr.filter((p) =>
         p[key].toLowerCase().includes(filtro) 
     );
 }
 
-function filterByName(juegos){
+function filtrarPorNombre(juegos){
     const filtro = document.querySelector(".searchInput").value.toLowerCase();
-    const resultadoFiltrado = filtrarAny(juegos, filtro, "nombre");
+    const resultadoFiltrado = filtrar(juegos, filtro, "nombre");
     document.getElementById("productCards").innerHTML = ""; 
     renderCatalogo(resultadoFiltrado);
 }
 
-function filterByPlatform(juegos) {
+function filtrarPorPlataforma(juegos) {
     const plataforma = document.getElementById("consola").value;
-    const resultadoFiltrado = filtrarAny(juegos, plataforma.toLowerCase(), "plataforma");
+    const resultadoFiltrado = filtrar(juegos, plataforma.toLowerCase(), "plataforma");
     document.getElementById("productCards").innerHTML = ""; 
     renderCatalogo(resultadoFiltrado);
 } 
 
-function filterByType(juegos) {
+function filtrarPorTipo(juegos) {
     const plataforma = document.getElementById("tipo").value;
-    const resultadoFiltrado = filtrarAny(juegos, plataforma.toLowerCase(), "plataforma");
+    const resultadoFiltrado = filtrar(juegos, plataforma.toLowerCase(), "plataforma");
     document.getElementById("productCards").innerHTML = ""; 
     renderCatalogo(resultadoFiltrado);
 } 
-function filterByPrice(juegos) {
+function filtrarPorPrecio(juegos) {
   const precio = document.getElementById("precio").value;
   let resultadoFiltrado = [];
 
@@ -228,6 +233,21 @@ function filterByPrice(juegos) {
   document.getElementById("productCards").innerHTML = "";
   renderCatalogo(resultadoFiltrado);
 }
+
+document.getElementById("toggleBarraLateral").addEventListener("click", () => {
+  document.getElementById("barraLateral").classList.add("open");
+});
+
+document.getElementById("cerrarBarraLateral").addEventListener("click", () => {
+  document.getElementById("barraLateral").classList.remove("open");
+});
+
+const inputRango = document.getElementById("rangoPrecio");
+const valorPrecio = document.getElementById("valorPrecio");
+
+inputRango.addEventListener("input", () => {
+  valorPrecio.textContent = `$${inputRango.value}`;
+});
 
 function mostrarAlerta(mensaje) {
   const contenedor = document.getElementById("alert-container");

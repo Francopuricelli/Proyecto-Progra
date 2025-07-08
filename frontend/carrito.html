@@ -2,6 +2,10 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
+  <script>
+  const temaGuardado = localStorage.getItem("theme") || "light";
+  document.documentElement.setAttribute("data-theme", temaGuardado);
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Carrito - Insert Coin</title>
   <link rel="stylesheet" href="css/carrito.css" />
@@ -35,7 +39,7 @@
 
       <button class="confirm-btn" id="botonConfirmar">Confirmar compra</button>
       
-      <button class="clear-cart" > Vaciar Carrito</button>
+      <button class="clear-cart" id="limpiarCarrito"> Vaciar Carrito</button>
     </aside>
   </main>
 

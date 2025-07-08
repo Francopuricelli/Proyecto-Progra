@@ -47,20 +47,20 @@
                 <a href="/api/views/admin-edit/<%= product.id %>" class="btn btn-sm btn-outline-info me-1" title="Editar">
                   <i class="fas fa-edit"></i>
                 </a>
-                <button 
+                <boton 
                   class="btn btn-sm me-1 toggle-btn <%= product.activo ? 'btn-outline-secondary' : 'btn-outline-success' %>" 
                   data-id="<%= product.id %>" 
                   title="<%= product.activo ? 'Desactivar' : 'Activar' %>"
                 >
                   <i class="fas <%= product.activo ? 'fa-times' : 'fa-check' %>"></i>
-                </button>
-                <button 
+                </boton>
+                <boton 
                   class="btn btn-sm btn-outline-danger delete-btn" 
                   data-id="<%= product.id %>" 
                   title="Eliminar"
                 >
                   <i class="fas fa-trash-alt"></i>
-                </button>
+                </boton>
               </td>
             </tr>
           <% }); %>
@@ -74,46 +74,46 @@
 
 </body>
 <script>
-const toggleButtons = document.querySelectorAll('.toggle-btn');
-const deleteButtons = document.querySelectorAll('.delete-btn');
-  toggleButtons.forEach(button => {
-    button.addEventListener('click', async (e) => {
+const botonesToggle = document.querySelectorAll('.toggle-btn');
+const botonesEliminar = document.querySelectorAll('.delete-btn');
+  botonesToggle.forEach(boton => {
+    boton.addEventListener('click', async (e) => {
       e.preventDefault();
 
-      const productId = button.dataset.id;
-      const tr = button.closest('tr'); 
+      const productoId = boton.dataset.id;
+      const tr = boton.closest('tr'); 
       const badge = tr.querySelector('td:nth-child(5) .badge');
 
       try {
-        const response = await fetch(`/api/products/${productId}/toggle`, {
+        const response = await fetch(`/api/products/${productoId}/toggle`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' }
         });
 
         if (response.ok) {
-          const updatedProduct = await response.json();
+          const productoActualizado = await response.json();
 
           // Actualizar badge
-          if (updatedProduct.activo) {
+          if (productoActualizado.activo) {
             badge.classList.remove('bg-secondary');
             badge.classList.add('bg-success');
             badge.textContent = 'Activo';
 
             // Cambiar botón para desactivar
-            button.title = 'Desactivar';
-            button.querySelector('i').className = 'fas fa-times';
-            button.classList.remove('btn-outline-success');
-            button.classList.add('btn-outline-secondary');
+            boton.title = 'Desactivar';
+            boton.querySelector('i').className = 'fas fa-times';
+            boton.classList.remove('btn-outline-success');
+            boton.classList.add('btn-outline-secondary');
           } else {
             badge.classList.remove('bg-success');
             badge.classList.add('bg-secondary');
             badge.textContent = 'Inactivo';
 
             // Cambiar botón para activar
-            button.title = 'Activar';
-            button.querySelector('i').className = 'fas fa-check';
-            button.classList.remove('btn-outline-secondary');
-            button.classList.add('btn-outline-success');
+            boton.title = 'Activar';
+            boton.querySelector('i').className = 'fas fa-check';
+            boton.classList.remove('btn-outline-secondary');
+            boton.classList.add('btn-outline-success');
           }
 
         } else {
@@ -126,16 +126,16 @@ const deleteButtons = document.querySelectorAll('.delete-btn');
     });
   });
 
-deleteButtons.forEach(button => {
-    button.addEventListener('click', async (e) => {
+botonesEliminar.forEach(boton => {
+    boton.addEventListener('click', async (e) => {
       e.preventDefault();
 
-      const productId = button.dataset.id;
-      const tr = button.closest('tr');
+      const productoId = boton.dataset.id;
+      const tr = boton.closest('tr');
 
 
       try {
-        const response = await fetch(`/api/products/${productId}`, {
+        const response = await fetch(`/api/products/${productoId}`, {
           method: 'DELETE',
         });
 
