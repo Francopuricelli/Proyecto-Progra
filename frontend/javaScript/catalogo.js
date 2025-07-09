@@ -115,37 +115,16 @@ const platformSelect = document.getElementById("consola");
 const typeSelect = document.getElementById("tipo");
 const priceSelect = document.getElementById("precio");
 // AddEventListeners
-inputBuscar.addEventListener("keyup", () => {
-  filtrarPorNombre(catalogoCompleto);
-});
 
-platformSelect.addEventListener("change", () => {
-  if (platformSelect.value != 'all') {
-    filtrarPorPlataforma(catalogoCompleto); 
-  }else{
-    document.getElementById("productCards").innerHTML = "";
-    renderCatalogo(catalogoCompleto);
-    
-  }
-});
+inputBuscar.addEventListener("keyup", aplicarFiltrosCombinados);
 
-// typeSelect.addEventListener("change", () => {
-//   if (typeSelect.value != 'all') {
-//     filtrarPorTipo(catalogoCompleto);
-//   } else {
-//     document.getElementById("productCards").innerHTML = "";
-//     renderCatalogo(catalogoCompleto);
-//   }
-// });
+platformSelect.addEventListener("change", aplicarFiltrosCombinados);
 
-// priceSelect.addEventListener("change", () => {
-//   if (priceSelect.value != 'all') {
-//     filtrarPorPrecio(catalogoCompleto);
-//   } else {
-//     document.getElementById("productCards").innerHTML = "";
-//     renderCatalogo(catalogoPaginado);
-//   }
-// });
+typeSelect.addEventListener("change", aplicarFiltrosCombinados);
+
+priceSelect.addEventListener("change", aplicarFiltrosCombinados);
+
+
 
 const adminLink = document.querySelector('.admin-link');
 adminLink.addEventListener('click', (e) => {
@@ -192,47 +171,48 @@ document.getElementById("productCards").addEventListener("click", (e) => {
 
 
   //FUNCIONES FILTRAR
-function filtrar(arr, filtro,key) {
+function filtrarAny(arr, filtro,key) {
     return arr.filter((p) =>
-        p[key].toLowerCase().includes(filtro) 
+        p[key].toLowerCase().includes(filtro.toLowerCase()) 
     );
 }
 
-function filtrarPorNombre(juegos){
-    const filtro = document.querySelector(".searchInput").value.toLowerCase();
-    const resultadoFiltrado = filtrar(juegos, filtro, "nombre");
-    document.getElementById("productCards").innerHTML = ""; 
-    renderCatalogo(resultadoFiltrado);
-}
+function aplicarFiltrosCombinados() {
+  let juegosFiltrados = catalogoCompleto; 
 
-function filtrarPorPlataforma(juegos) {
-    const plataforma = document.getElementById("consola").value;
-    const resultadoFiltrado = filtrar(juegos, plataforma.toLowerCase(), "plataforma");
-    document.getElementById("productCards").innerHTML = ""; 
-    renderCatalogo(resultadoFiltrado);
-} 
+  // Filtro por nombre
+  const nombreFiltro = inputBuscar.value.toLowerCase();
+  if (nombreFiltro) {
+    juegosFiltrados = filtrarAny(juegosFiltrados, nombreFiltro, 'nombre');
+  }
+  
 
-function filtrarPorTipo(juegos) {
-    const plataforma = document.getElementById("tipo").value;
-    const resultadoFiltrado = filtrar(juegos, plataforma.toLowerCase(), "plataforma");
-    document.getElementById("productCards").innerHTML = ""; 
-    renderCatalogo(resultadoFiltrado);
-} 
-function filtrarPorPrecio(juegos) {
-  const precio = document.getElementById("precio").value;
-  let resultadoFiltrado = [];
+  // Filtro por plataforma
+  const plataformaFiltro = platformSelect.value;
+  if (plataformaFiltro !== 'all') {
+    juegosFiltrados = filtrarAny(juegosFiltrados, plataformaFiltro, 'plataforma');
+  }
 
-  if (precio === "0-30") {
-    resultadoFiltrado = juegos.filter(juego => juego.precio > 0 && juego.precio <= 30);
-  } else if (precio === "30-70") {
-    resultadoFiltrado = juegos.filter(juego => juego.precio > 30 && juego.precio <= 70);
-  } else {
-    resultadoFiltrado = juegos;
+  // Filtro por tipo
+  const tipoFiltro = typeSelect.value;
+  if (tipoFiltro !== 'all') {
+    juegosFiltrados = filtrarAny(juegosFiltrados, tipoFiltro, 'tipo');
+  }
+
+  // Filtro por precio
+  const precioFiltro = priceSelect.value;
+  if (precioFiltro !== 'all') {
+    if (precioFiltro === "0-30") {
+      juegosFiltrados = juegosFiltrados.filter(juego => juego.precio > 0 && juego.precio <= 30);
+    } else if (precioFiltro === "30-100") {
+      juegosFiltrados = juegosFiltrados.filter(juego => juego.precio > 30 && juego.precio <= 100);
+    }
   }
 
   document.getElementById("productCards").innerHTML = "";
-  renderCatalogo(resultadoFiltrado);
-}
+  renderCatalogo(juegosFiltrados);
+};
+
 
 document.getElementById("toggleBarraLateral").addEventListener("click", () => {
   document.getElementById("barraLateral").classList.add("open");
@@ -242,12 +222,9 @@ document.getElementById("cerrarBarraLateral").addEventListener("click", () => {
   document.getElementById("barraLateral").classList.remove("open");
 });
 
-const inputRango = document.getElementById("rangoPrecio");
-const valorPrecio = document.getElementById("valorPrecio");
 
-inputRango.addEventListener("input", () => {
-  valorPrecio.textContent = `$${inputRango.value}`;
-});
+
+
 
 function mostrarAlerta(mensaje) {
   const contenedor = document.getElementById("alert-container");

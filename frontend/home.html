@@ -113,7 +113,7 @@
   <select id="consola" class="platform-select">
     <option value="" disabled selected>Elige una opción</option>
     <option value="all">Todas</option>
-    <option value="PS5">PlayStation 5</option>
+    <option value="PS5">PS5</option>
     <option value="Xbox Series X">Xbox Series X</option>
     <option value="Nintendo Switch">Nintendo Switch</option>
     <option value="PC">PC</option>
@@ -126,9 +126,12 @@
     <option value="dlc">DLC</option>
   </select>
 
-  <label class="platform-label mt-3">Precio Máximo:</label>
-  <input type="range" min="0" max="100" step="5" id="rangoPrecio" />
-  <span id="valorPrecio">$100</span>
+  <label class="platform-label mt-3">Rango de precio:</label>
+  <select id="precio" class="platform-select">
+    <option value="none">Ninguno</option>
+    <option value="0-30">0$-30$</option>
+    <option value="30-100">30$-100$</option>
+  </select>
 </div>
 
 <footer class="footer-dev text-center text-lg-start">
