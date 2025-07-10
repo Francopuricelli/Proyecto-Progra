@@ -16,40 +16,33 @@
 <body>
 
   <nav class="navbar navbar-expand-lg">
-    <a class="navbar-brand" href="#">
-      <img src="assets/img/InsertCoinLight.png" alt="Insert Coin Logo">
-    </a>
-    <div class="collapse navbar-collapse justify-content-end">
-      <ul class="navbar-nav align-items-center">
-        
-        <li class="nav-item">
-          <a class="nav-link" href="carrito.html">Carrito</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Catálogo</a>
-        </li>
-        <li class="nav-item">
-          <button class="admin-link" >Admin Login</button>
-        </li>
-        <!-- <li class="nav-item">
-          <div class="inputBox">
-            <input class="searchInput" placeholder="Buscar Juego" />
-            <i class="fa-solid fa-magnifying-glass searchIcon"></i>
-          </div>
-        </li> -->
+  <a class="navbar-brand" href="#">
+    <img src="assets/img/InsertCoinLight.png" alt="Insert Coin Logo">
+  </a>
+  <div class="desktop-nav-items navbar-collapse justify-content-end">
+    <ul class="navbar-nav align-items-center">
+      <li class="nav-item">
+        <a class="nav-link" href="carrito.html">Carrito</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Catálogo</a>
+      </li>
+      <li class="nav-item">
+        <button class="admin-link">Admin Login</button>
+      </li>
+      <li class="nav-item">
         <button id="themeToggle" class="btn-theme">
           <i class="fa-solid fa-moon"></i>
         </button>
-        <li class="nav-item">
-          <button id="toggleBarraLateral" class="boton-menu">
-            <i class="fa-solid fa-bars"></i>
-          </button>
+      </li>
+    </ul>
+  </div>
+  
+  <button id="toggleBarraLateral" class="boton-menu">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+</nav>
 
-        </li>
-        
-      </ul>
-    </div>
-  </nav>
 
 
   <section class="hero">
@@ -59,8 +52,8 @@
       </div>
 
       <div class="carousel-box">
-        <div id="carouselPrincipal" class="carousel slide h-100" data-bs-ride="carousel">
-          <div class="carousel-inner h-100">
+        <div id="carouselPrincipal" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner ratio ratio-16x9">
             <div class="carousel-item active">
               <img src="assets/img/bossfight.png" class="d-block w-100" alt="Juego 1">
             </div>
@@ -103,7 +96,6 @@
 
 <div id="barraLateral" class="barraLateral">
   <button id="cerrarBarraLateral">&times;</button>
-
   <div class="inputBox">
     <input class="searchInput" placeholder="Buscar Juego" />
     <i class="fa-solid fa-magnifying-glass searchIcon"></i>
@@ -132,6 +124,19 @@
     <option value="0-30">0$-30$</option>
     <option value="30-100">30$-100$</option>
   </select>
+
+  <div class="mobile-nav-items d-lg-none">
+    <ul>
+      <li><a class="nav-link" href="carrito.html">Carrito</a></li>
+      <li><a class="nav-link" href="#">Catálogo</a></li>
+      <li><button class="admin-link">Admin Login</button></li>
+      <li>
+        <button id="themeToggle" class="btn-theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </li>
+    </ul>
+  </div>
 </div>
 
 <footer class="footer-dev text-center text-lg-start">

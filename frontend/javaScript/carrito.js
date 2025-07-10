@@ -6,6 +6,8 @@ export function agregarAlCarrito(producto_id, lista_juegos) {
   if (carritoGuardado) {
     lista_carrito = JSON.parse(carritoGuardado);
     console.log("carrito cargado");
+  } else {
+    lista_carrito = []; 
   }
 
   const productoExistente = lista_juegos.find(p => p.id === Number(producto_id));
@@ -103,50 +105,87 @@ function recuperarCarrito() {
   lista_carrito = carritoGuardado ? JSON.parse(carritoGuardado) : [];
 }
 
-async function confirmarCompra() {
+function confirmarCompra() {
   if (lista_carrito.length === 0) {
     alert("El carrito está vacío.");
     return;
   }
-
-  const user_id = 1;
-  let total = 0;
-  for(const producto of lista_carrito) {
-    total += producto.precio * producto.cantidad;
-  }
-
-  const venta = {
-    userId: user_id,
-    total: total,
-    productos: lista_carrito.map((producto) => ({
-      product_id: producto.id,
-      cantidad: producto.cantidad,
-      precio: producto.precio
-    }))
-  };
-
-  try {
-    const response = await fetch("/api/sales/create", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(venta)
-    });
-
-    const data = await response.json();
-    if (response.ok) {
-      alert("Compra realizada con éxito!");
-      limpiarCarrito();
-      window.location.href = `/ticket.html?ventaId=${data.id}`;
-    } else {
-      const data = await response.json();
-      alert("Error al registrar la compra: " + (data.error || "Desconocido"));
-    }
-  } catch (error) {
-    console.error("Error en la solicitud:", error);
-    alert("Error de red al intentar registrar la compra.");
-  }
+  modalConfirmarCompra();
 }
 
+
+
+
+function modalConfirmarCompra() {
+
+  if (document.getElementById("modalConfirmarCompra")) 
+    return;
+
+
+
+  const modalHTML = `
+    <div id="modalConfirmarCompra" class="modal">
+      <div class="contenido-modal">
+        <p>¿Deseás confirmar tu compra?</p>
+        <div class="modal-btns">
+          <button id="botonConfirmar" class="btn-confirm">Sí</button>
+          <button id="botonCancelar" class="btn-cancel">No</button>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const contenedor = document.createElement("div");
+  contenedor.innerHTML = modalHTML;
+  document.body.appendChild(contenedor);
+
+  const modal = document.getElementById("modalConfirmarCompra");
+
+  const botonConfirmar = document.getElementById("botonConfirmar");
+  const botonCancel = document.getElementById("botonCancelar");
+  
+  botonCancel.addEventListener("click", () => {
+    modal.remove();
+  });
+
+  botonConfirmar.addEventListener("click", async () => {
+    modal.remove();
+
+
+    const user_id = 1;
+    let total = 0;
+    for (const producto of lista_carrito) {
+      total += producto.precio * producto.cantidad;
+    }
+    const venta = {
+      userId: user_id,
+      total: total,
+      productos: lista_carrito.map((producto) => ({
+        product_id: producto.id,
+        cantidad: producto.cantidad,
+        precio: producto.precio
+      }))
+    };
+    try {
+      const response = await fetch("/api/sales/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(venta)
+      });
+      const data = await response.json();
+      if (response.ok) {
+        alert("Compra realizada con éxito!");
+        limpiarCarrito();
+        window.location.href = `/ticket.html?ventaId=${data.id}`;
+      } else {
+        alert("Error al registrar la compra: " + (data.error || "Desconocido"));
+      }
+    } catch (error) {
+      console.error("Error en la solicitud:", error);
+      alert("Error de red al intentar registrar la compra.");
+    }
+  });
+}
 
 function limpiarCarrito() {
   lista_carrito = [];
