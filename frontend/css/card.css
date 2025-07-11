@@ -85,7 +85,15 @@ body {
   flex-direction: column;
   gap: 15px;
 }
+.barraLateral .inputBox {
+  width: 180px;
+  min-width: 0;
+}
 
+.barraLateral .searchInput {
+  width: 120px;
+  min-width: 0;
+}
 .barraLateral.open {
   right: 0;
 }

@@ -4,28 +4,27 @@ import { Op } from "sequelize";
 
 const ProductDao = {
   async getAllByPage(limite, offset, input = "", plataforma = "all", tipo = "all", rangoPrecio = "none") {
-    const clausulas= {activo: true};
-    
-  if (rangoPrecio != "none"){
-      const precio = rangoPrecio.split("-")
-      const min = precio[0];
-      const max = precio[1];
-     
-      clausulas.precio[Op.gte] = min;
-      clausulas.precio[Op.lte] = max;
-    }
+    const clausulas = { activo: true };
 
-  if (input && input != ""){
-    clausulas.nombre = { [Op.substring]: `%${input}%`};
-  }
+if (rangoPrecio !== "none") {
+  const [min, max] = rangoPrecio.split("-");
+  clausulas.precio = {
+    [Op.gte]: parseFloat(min),
+    [Op.lte]: parseFloat(max)
+  };
+}
 
-  if (plataforma && plataforma != "all"){
-    clausulas.plataforma = plataforma;
-  }
+if (input && input !== "") {
+  clausulas.nombre = { [Op.substring]: `%${input}%` };
+}
 
-  if (tipo && tipo != "all"){
-    clausulas.tipo= tipo;
-  }
+if (plataforma && plataforma !== "all") {
+  clausulas.plataforma = plataforma;
+}
+
+if (tipo && tipo !== "all") {
+  clausulas.tipo = tipo;
+}
 
     const products = await Product.findAll({limit: limite, offset : offset*limite, where: clausulas});
     return products;
