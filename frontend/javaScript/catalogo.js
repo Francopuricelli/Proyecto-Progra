@@ -226,14 +226,16 @@ function aplicarFiltrosCombinados() {
 
 
 
-document.getElementById("toggleBarraLateral").addEventListener("click", () => {
-  document.getElementById("barraLateral").classList.add("open");
-});
+const botonMenu = document.getElementById("toggleBarraLateral");
+const barraLateral = document.getElementById("barraLateral");
+const cerrarBarraLateral = document.getElementById("cerrarBarraLateral");
 
-document.getElementById("cerrarBarraLateral").addEventListener("click", () => {
-  document.getElementById("barraLateral").classList.remove("open");
+botonMenu.addEventListener("click", () => {
+  barraLateral.classList.toggle("open");
 });
-
+cerrarBarraLateral.addEventListener("click", () => {
+  barraLateral.classList.remove("open");
+});
 
 
 

@@ -6,6 +6,7 @@ async function renderCompras() {
   
   if (!ventaId) {
     alert("Venta no encontrada");
+    window.location.href = `/home.html`;
     return;
 
 }
