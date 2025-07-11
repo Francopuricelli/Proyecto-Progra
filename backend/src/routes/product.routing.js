@@ -1,5 +1,6 @@
 import { Router } from "express";
 import ProductController from "../controller/product.controller.js";
+import imageUpload from "../middlewares/upload.js";
 const router = Router();
 
 router.get('/', ProductController.getAllByPage);
@@ -8,9 +9,9 @@ router.get('/all', ProductController.getAll); // Endpoint to get all products wi
 
 router.get('/:id', ProductController.getById);
 
-router.post('/create', ProductController.create);
+router.post('/create', imageUpload.single("imagen"), ProductController.create);
 
-router.put('/:id', ProductController.update);
+router.put('/:id', imageUpload.single("imagen"), ProductController.update);
 
 router.delete('/:id', ProductController.delete);
 

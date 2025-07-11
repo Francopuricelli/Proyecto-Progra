@@ -15,6 +15,8 @@ const getData = async (url) => {
   
 };
 
+
+
 const getDataPaginada = async (pagina) => {
   const offset = pagina-1;
   const response = await fetch(`http://localhost:3000/api/products?limit=${limitePaginacion}&offset=${offset}`);
@@ -43,7 +45,7 @@ function renderCatalogo(catalogo){
     const cardHtml = `
       <div class="col-6 col-md-4 col-lg-3 mb-4"> 
         <div class="card game-card text-white position-relative h-90 shadow">
-          <img src="${imagen_url}" class="card-img" alt="${nombre}">
+          <img src="http://localhost:3000/img/${imagen_url}" class="card-img" alt="${nombre}">
           <div class="card-img-overlay overlay-content d-flex flex-column justify-content-end p-3">
             <h5 class="card-title">${nombre}</h5>
             <div class="card-details">
@@ -178,40 +180,50 @@ function filtrarAny(arr, filtro,key) {
 }
 
 function aplicarFiltrosCombinados() {
-  let juegosFiltrados = catalogoCompleto; 
+  const nombreFiltro = inputBuscar.value.trim().toLowerCase();
+  const plataformaFiltro = platformSelect.value;
+  const tipoFiltro = typeSelect.value;
+  const precioFiltro = priceSelect.value;
 
-  // Filtro por nombre
-  const nombreFiltro = inputBuscar.value.toLowerCase();
-  if (nombreFiltro) {
+  const sinNombre = !nombreFiltro
+  const sinPlataforma = plataformaFiltro === "default" || plataformaFiltro === "all";
+  const sinTipo = tipoFiltro === "default" || tipoFiltro === "all";
+  const sinPrecio = precioFiltro === "default" || precioFiltro === "none";
+
+ 
+  if (sinNombre && sinPlataforma && sinTipo && sinPrecio) {
+    getDataPaginada(paginaActual);
+    return;
+  }
+
+ 
+  let juegosFiltrados = catalogoCompleto;
+
+  if (!sinNombre) {
     juegosFiltrados = filtrarAny(juegosFiltrados, nombreFiltro, 'nombre');
   }
-  
 
-  // Filtro por plataforma
-  const plataformaFiltro = platformSelect.value;
-  if (plataformaFiltro !== 'all') {
+  if (!sinPlataforma) {
     juegosFiltrados = filtrarAny(juegosFiltrados, plataformaFiltro, 'plataforma');
   }
 
-  // Filtro por tipo
-  const tipoFiltro = typeSelect.value;
-  if (tipoFiltro !== 'all') {
+  if (!sinTipo) {
     juegosFiltrados = filtrarAny(juegosFiltrados, tipoFiltro, 'tipo');
   }
 
-  // Filtro por precio
-  const precioFiltro = priceSelect.value;
-  if (precioFiltro !== 'all') {
-    if (precioFiltro === "0-30") {
-      juegosFiltrados = juegosFiltrados.filter(juego => juego.precio > 0 && juego.precio <= 30);
-    } else if (precioFiltro === "30-100") {
-      juegosFiltrados = juegosFiltrados.filter(juego => juego.precio > 30 && juego.precio <= 100);
+  if (!sinPrecio) {
+    if (precioFiltro === '0-30') {
+      juegosFiltrados = juegosFiltrados.filter(j => j.precio > 0 && j.precio <= 30);
+    } else if (precioFiltro === '30-100') {
+      juegosFiltrados = juegosFiltrados.filter(j => j.precio > 30 && j.precio <= 100);
     }
   }
 
-  document.getElementById("productCards").innerHTML = "";
+ 
   renderCatalogo(juegosFiltrados);
-};
+  document.getElementById("paginacion").innerHTML = "";
+}
+
 
 
 document.getElementById("toggleBarraLateral").addEventListener("click", () => {
@@ -246,5 +258,7 @@ function mostrarAlerta(mensaje) {
     setTimeout(() => alerta.remove(), 500); 
   }, 3000);
 }
+
+
 
 

@@ -15,7 +15,15 @@ router.get('/admin-edit/:id', async (req, res) => {
   }
 });
 
-export default router;
+router.get('/admin-create', async (req, res) => {
+  try {
+    res.render('admin-create');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error interno del servidor');
+  }
+});
+
 
 router.get("/admin-login", (req, res) =>{
   res.render("admin-login")
@@ -32,3 +40,5 @@ router.get("/index", async (req, res) =>{
 router.get("/admin-create", (req, res) =>{
   res.render("admin-create")
 })
+
+export default router;

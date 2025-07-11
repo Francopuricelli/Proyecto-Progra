@@ -37,7 +37,7 @@ app.use("/api/views", ViewRouter);
 app.use("/api/sales", SaleRouter);
 
 app.get("/", (req, res) => {
-  res.sendFile(join(__dirname, "../../frontend/index.html"));
+  res.sendFile(join(__dirname, "../../frontend/index.html")); 
 });
 
 
