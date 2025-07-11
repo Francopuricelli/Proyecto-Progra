@@ -2,10 +2,10 @@ import ProductDao from "../dao/product.dao.js";
 
 const ProductController = {
   async getAllByPage(req, res) {
-    const { limit, offset } = req.query;
+    const { limit, offset, input = "", plataforma = "all", tipo = "all", rangoPrecio = "none"} = req.query;
 
   try {
-    const products = await ProductDao.getAllByPage(Number(limit), Number(offset));
+    const products = await ProductDao.getAllByPage(Number(limit), Number(offset), input, plataforma, tipo, rangoPrecio);
     const total = await ProductDao.countAll();
 
     res.status(200).json({products,total});

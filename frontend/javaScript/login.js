@@ -22,7 +22,7 @@ formulario.addEventListener('submit', async (event) => {
             const data= await response.json();
 
             if (response.ok){
-              localStorage.setItem('username', inputUsuario); 
+              localStorage.setItem('usuario', JSON.stringify({ id: data.newUser.id, username: data.newUser.username }));
               window.location.href = "home.html";
             }else {
               alert(data.error);

@@ -11,25 +11,36 @@ const getData = async (url) => {
   const response = await fetch(url);
   const data = await response.json();
   catalogoCompleto = data;
-  console.log(catalogoCompleto);
   
 };
 
+//llamada a ids/clases
+const inputBuscar = document.querySelector(".searchInput");
+const platformSelect = document.getElementById("consola");
+const typeSelect = document.getElementById("tipo");
+const priceSelect = document.getElementById("precio");
 
 
 const getDataPaginada = async (pagina) => {
   const offset = pagina-1;
-  const response = await fetch(`http://localhost:3000/api/products?limit=${limitePaginacion}&offset=${offset}`);
+
+  const input = inputBuscar.value.trim();
+  const plataforma = platformSelect.value === "default" ? "all" : platformSelect.value;
+  const tipo = typeSelect.value === "default" ? "all" : typeSelect.value;
+  const rangoPrecio = priceSelect.value === "default" ? "none" : priceSelect.value;
+
+  const response = await fetch(`http://localhost:3000/api/products?limit=${limitePaginacion}&offset=${offset}&input=${encodeURIComponent(input)}&plataforma=${plataforma}&tipo=${tipo}&rangoPrecio=${rangoPrecio}`);
   const data = await response.json();
 
   catalogoPaginado = data.products;
-  totalProductos = data.total; //
+  totalProductos = data.total;
   paginaActual = pagina;
 
   renderCatalogo(catalogoPaginado);
   renderPaginacion();
 }
-getData(`http://localhost:3000/api/products/all`); 
+
+ 
 getDataPaginada(paginaActual); 
 
 function renderCatalogo(catalogo){
@@ -111,11 +122,6 @@ function renderPaginacion() {
 
 
 
-//llamada a ids/clases
-const inputBuscar = document.querySelector(".searchInput");
-const platformSelect = document.getElementById("consola");
-const typeSelect = document.getElementById("tipo");
-const priceSelect = document.getElementById("precio");
 // AddEventListeners
 
 inputBuscar.addEventListener("keyup", aplicarFiltrosCombinados);
@@ -160,11 +166,21 @@ adminLink.addEventListener('click', (e) => {
   
 // evento para agregar al carrito
 document.getElementById("productCards").addEventListener("click", (e) => {
-    if (e.target.classList.contains("agregar-carrito")) {
-        const productoId = e.target.getAttribute("data-id");
-        agregarAlCarrito(productoId, catalogoCompleto);
-        mostrarAlerta("Producto agregado al carrito");
+  if (e.target.classList.contains("agregar-carrito")) {
+    const productoId = e.target.getAttribute("data-id");
+    
+    let producto = catalogoPaginado.find(p => p.id == productoId);
+    if (!producto) {
+      
+      producto = catalogoCompleto.find(p => p.id == productoId);
     }
+    if (producto) {
+      agregarAlCarrito(productoId, [producto]);
+      mostrarAlerta("Producto agregado al carrito");
+    } else {
+      mostrarAlerta("No se encontró el producto");
+    }
+  }
 });
 
 
@@ -180,6 +196,8 @@ function filtrarAny(arr, filtro,key) {
 }
 
 function aplicarFiltrosCombinados() {
+
+  getDataPaginada(1);
   const nombreFiltro = inputBuscar.value.trim().toLowerCase();
   const plataformaFiltro = platformSelect.value;
   const tipoFiltro = typeSelect.value;

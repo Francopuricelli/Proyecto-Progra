@@ -48,7 +48,7 @@ function renderizarCarrito() {
     li.className = "li-items";
 
     li.innerHTML = `
-      <img class="cart-img" src="${item.imagen_url}" />
+      <img class="cart-img" src="http://localhost:3000/img/${item.imagen_url}" />
       <div class="item-info">
         <h3>${item.nombre}</h3>
         <p>Plataforma: ${item.plataforma}</p>
@@ -151,8 +151,12 @@ function modalConfirmarCompra() {
   botonConfirmar.addEventListener("click", async () => {
     modal.remove();
 
-
-    const user_id = 1;
+    const usuarioGuardado = localStorage.getItem("usuario");
+    let user_id = 1;  
+    if (usuarioGuardado) {
+      const usuario = JSON.parse(usuarioGuardado);
+      user_id = usuario.id;
+    }
     let total = 0;
     for (const producto of lista_carrito) {
       total += producto.precio * producto.cantidad;
@@ -198,8 +202,9 @@ recuperarCarrito();
 renderizarCarrito();
 
 
-const botonConfirmar = document.getElementById("botonConfirmar");
+const botonConfirmar = document.getElementById("confirmarCompra");
 if (botonConfirmar) {
+  
   botonConfirmar.addEventListener("click", confirmarCompra);
 }
 const botonLimpiar = document.getElementById("limpiarCarrito");
