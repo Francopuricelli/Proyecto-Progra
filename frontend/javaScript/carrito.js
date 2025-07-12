@@ -211,3 +211,10 @@ const botonLimpiar = document.getElementById("limpiarCarrito");
 if (botonLimpiar) {
   botonLimpiar.addEventListener("click", limpiarCarrito);
 }
+
+const btnGoBack = document.getElementById("goBack");
+if (btnGoBack){
+  btnGoBack.addEventListener("click", ()=> {
+    window.location.href = `/home.html`;
+  });
+};

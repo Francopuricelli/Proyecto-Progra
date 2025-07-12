@@ -173,7 +173,7 @@ body {
   color: var(--color-boton);
 }
 
-.confirm-btn, .clear-cart {
+.confirm-btn, .clear-cart, .btn-goBack{
   width: 100%;
   padding: 0.8rem;
   margin-top: 0.5rem;
@@ -266,4 +266,16 @@ body {
 #modalConfirmarCompra .btn-cancel:hover {
   background: var(--color-texto-rojo);
   color: #fff;
+}
+
+.btn-goBack {
+  background-color: transparent;
+  color: var(--color-texto);
+  border: 1px solid #fff;
+  margin-top: 10px;
+ 
+}
+
+.btn-goBack:hover {
+  background-color: #dba126;
 }
