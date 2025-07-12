@@ -39,6 +39,10 @@ app.get("/", (req, res) => {
   res.sendFile(join(__dirname, "../../frontend/index.html")); 
 });
 
+app.get("/home.html", (req, res) => {
+  res.sendFile(join(__dirname, "../../frontend/home.html")); 
+});
+
 
 app.set("view engine", "ejs");
 app.set("views", join(__dirname, "../src/views"));
