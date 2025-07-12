@@ -154,7 +154,7 @@ function modalConfirmarCompra() {
     const usuarioGuardado = localStorage.getItem("usuario");
     let user_id = 1;  
     if (usuarioGuardado) {
-      const usuario = JSON.parse(usuarioGuardado);
+      const usuario = JSON.parse(usuarioGuardado); 
       user_id = usuario.id;
     }
     let total = 0;

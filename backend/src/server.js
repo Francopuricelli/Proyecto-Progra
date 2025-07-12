@@ -4,7 +4,6 @@ import AdminRouter from './routes/admin.routing.js';
 import UserRouter from './routes/user.route.js';
 import ViewRouter from './routes/product.view.routes.js';
 import SaleRouter from './routes/sales.route.js';
-import envs from './config/envs.js'
 import sequelize from './config/db-sequalize.js';
 import {join, __dirname} from './utils/index.js'
 import cors from 'cors';

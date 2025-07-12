@@ -39,14 +39,18 @@ const ProductController = {
   },
 
   async create(req, res) {
-    try {
-      const product = req.body;
-      const newProduct = await ProductDao.create(product);
-      res.status(201).json(newProduct);
-    } catch (err) {
-      res.status(500).json({ error: "Error creando producto" });
-    }
-  },
+  try {
+    const product = req.body;
+    product.imagen_url = req.file.filename;
+    product.precio = parseFloat(product.precio);
+    
+
+    const newProduct = await ProductDao.create(product);
+    res.status(201).json(newProduct);
+  } catch (err) {
+    res.status(500).json({ error: "Error creando producto" });
+  }
+},
 
   async update(req, res) {
     try {

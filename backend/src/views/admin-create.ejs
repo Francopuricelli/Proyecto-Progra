@@ -42,10 +42,49 @@
         </select>
       </div>
 
-      <div class="mb-3">
-        <label for="imagen" class="form-label">Imagen del producto</label>
-        <input type="file" class="form-control" id="imagen" name="imagen">
-      </div>
+      
+    <div class="mb-3">
+      <label for="tipo" class="form-label">Tipo</label>
+      <select name="tipo" id="tipo" class="form-select" required>
+        <option value="">Elige una opción</option>
+        <option value="videojuego">Videojuego</option>
+        <option value="DLC">DLC</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="idioma" class="form-label">Idioma</label>
+      <input type="text" class="form-control" id="idioma" name="idioma" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="genero" class="form-label">Género</label>
+      <select class="form-select" id="genero" name="genero" required>
+        <option value="">Elige una opción</option>
+        <option value="Acción">Acción</option>
+        <option value="Aventura">Aventura</option>
+        <option value="Deportes">Deportes</option>
+        <option value="Estrategia">Estrategia</option>
+        <option value="RPG">RPG</option>
+        <option value="Simulación">Simulación</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label for="lanzamiento" class="form-label">Fecha de lanzamiento</label>
+      <input type="date" class="form-control" id="lanzamiento" name="lanzamiento" required>
+    </div>
+    
+    <div class="mb-3">
+      <label for="desarrollador" class="form-label">Desarrollador</label>
+      <textarea class="form-control" id="desarrollador" name="desarrollador" rows="3" required></textarea>
+    </div>
+
+    <div class="mb-3">
+      <label for="imagen" class="form-label">Imagen del producto</label>
+      <input type="file" class="form-control" id="imagen" name="imagen" required>
+    </div>
+
 
       <button type="submit" class="btn btn-warning fw-bold">Guardar Cambios</button>
     </form>
@@ -56,45 +95,46 @@
 </body>
 
 <script>
-   const formCrearProducto = document.getElementById('productCreate');
+  const formCrearProducto = document.getElementById('productCreate');
 
-formCrearProducto.addEventListener("submit", async (e) => {
-  e.preventDefault(); 
+  formCrearProducto.addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-  
+    const formData = new FormData();
 
-  const productoName = document.getElementById('nombre').value;
-  const productoPrice = parseFloat(document.getElementById('precio').value);
-  const productoStock = parseInt(document.getElementById('stock').value);
-  const productoPlatform = document.getElementById('plataforma').value;
+    formData.append("nombre", document.getElementById("nombre").value);
+    formData.append("precio", document.getElementById("precio").value);
+    formData.append("stock", document.getElementById("stock").value);
+    formData.append("plataforma", document.getElementById("plataforma").value);
+    formData.append("tipo", document.getElementById("tipo").value);
+    formData.append("idioma", document.getElementById("idioma").value);
+    formData.append("genero", document.getElementById("genero").value);
+    formData.append("lanzamiento", document.getElementById("lanzamiento").value);
+    formData.append("desarrollador", document.getElementById("desarrollador").value);
 
-
-  const NewProducto = {
-    nombre: productoName,
-    precio: productoPrice,
-    stock: productoStock,
-    plataforma: productoPlatform
-  };
-
-  try {
-    const response = await fetch(`/api/products/create`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(NewProducto)
-    });
-
-    const data = await response.json();
-
-    if (response.ok) {
-      alert('Producto creado exitosamente!');
-      window.location.href = '/api/views/index';
-    } else {
-      alert(data.error || 'Error al actualizar el producto');
+    const imagenInput = document.getElementById("imagen");
+    if (imagenInput.files.length > 0) {
+      formData.append("imagen", imagenInput.files[0]);
     }
-  } catch (err) {
-    console.error(err);
-    alert('Error en la solicitud');
-  }
-});
+
+    try {
+      const response = await fetch(`/api/products/create`, {
+        method: 'POST',
+        body: formData,
+      });
+
+      const data = await response.json();
+      console.log(data);
+      if (response.ok) {
+        alert('Producto creado exitosamente!');
+        window.location.href = '/api/views/index';
+      } else {
+       alert(data.message || data.error || data.details || 'Error al crear el producto');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Error en la solicitud');
+    }
+  });
 </script>
 </html>

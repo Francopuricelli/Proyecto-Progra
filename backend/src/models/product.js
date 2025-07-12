@@ -26,23 +26,23 @@ const Product = sequelize.define('product', {
   },
   desarrollador: {
     type: DataTypes.TEXT,
-    allowNull: true,
+    allowNull: false,
   },
   genero: {
     type: DataTypes.STRING(50),
-    allowNull: true,
+    allowNull: false
   },
   lanzamiento: {
     type: DataTypes.DATEONLY,
-    allowNull: true,
+    allowNull: false,
   },
   idioma: {
     type: DataTypes.JSON,
-    allowNull: true,
+    allowNull: false,
   },
   imagen_url: {
     type: DataTypes.STRING(255),
-    allowNull: true,
+    allowNull: false,
   },
   activo: {
     type: DataTypes.BOOLEAN,
