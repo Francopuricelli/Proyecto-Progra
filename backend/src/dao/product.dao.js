@@ -3,30 +3,64 @@ import { Op } from "sequelize";
 
 
 const ProductDao = {
+  async getAllByPageWithCount(limit, offset, input = "", plataforma = "all", tipo = "all", rangoPrecio = "none") {
+    const clausulas = { activo: true }; 
+
+    if (rangoPrecio !== "none") {
+      const [min, max] = rangoPrecio.split("-");
+      clausulas.precio = {
+        [Op.gte]: parseFloat(min),
+        [Op.lte]: parseFloat(max)
+      };
+    }
+
+    if (input && input !== "") {
+      clausulas.nombre = { [Op.substring]: input };  // No uses % con Op.substring
+    }
+
+    if (plataforma !== "all") {
+      clausulas.plataforma = plataforma;
+    }
+
+    if (tipo !== "all") {
+      clausulas.tipo = tipo;
+    }
+
+    // Obtener productos paginados
+    const rows = await Product.findAll({where: clausulas,limit,offset,order: [["id", "ASC"]]});
+
+    // Obtener total para paginación
+    const count = await Product.count({
+      where: clausulas
+    });
+
+    return { rows, count };
+  },
+
   async getAllByPage(limite, offset, input = "", plataforma = "all", tipo = "all", rangoPrecio = "none") {
     const clausulas = { activo: true };
 
-if (rangoPrecio !== "none") {
-  const [min, max] = rangoPrecio.split("-");
-  clausulas.precio = {
-    [Op.gte]: parseFloat(min),
-    [Op.lte]: parseFloat(max)
-  };
-}
+    if (rangoPrecio !== "none") {
+      const [min, max] = rangoPrecio.split("-");
+      clausulas.precio = {
+        [Op.gte]: parseFloat(min),
+        [Op.lte]: parseFloat(max)
+      };
+    }
 
-if (input && input !== "") {
-  clausulas.nombre = { [Op.substring]: `%${input}%` };
-}
+    if (input && input !== "") {
+      clausulas.nombre = { [Op.substring]: `%${input}%` };
+    }
 
-if (plataforma && plataforma !== "all") {
-  clausulas.plataforma = plataforma;
-}
+    if (plataforma && plataforma !== "all") {
+      clausulas.plataforma = plataforma;
+    }
 
-if (tipo && tipo !== "all") {
-  clausulas.tipo = tipo;
-}
+    if (tipo && tipo !== "all") {
+      clausulas.tipo = tipo;
+    }
 
-    const products = await Product.findAll({limit: limite, offset : offset*limite, where: clausulas});
+    const products = await Product.findAll({ limit: limite, offset: offset * limite, where: clausulas });
     return products;
   },
 

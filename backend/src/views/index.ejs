@@ -10,7 +10,7 @@
 <body>
   <%- include("partials/navbar.ejs") %>
 
-<main class="container mt-5">
+  <main class="container mt-5">
 
     <div class="d-flex justify-content-between align-items-center mb-4">
       <h2 class="text-white">Gestión de Productos</h2>
@@ -47,26 +47,52 @@
                 <a href="/api/views/admin-edit/<%= product.id %>" class="btn btn-sm btn-outline-info me-1" title="Editar">
                   <i class="fas fa-edit"></i>
                 </a>
-                <boton 
+                <button 
+                  type="button"
                   class="btn btn-sm me-1 toggle-btn <%= product.activo ? 'btn-outline-secondary' : 'btn-outline-success' %>" 
                   data-id="<%= product.id %>" 
-                  title="<%= product.activo ? 'Desactivar' : 'Activar' %>"
-                >
+                  title="<%= product.activo ? 'Desactivar' : 'Activar' %>">
                   <i class="fas <%= product.activo ? 'fa-times' : 'fa-check' %>"></i>
-                </boton>
-                <boton 
+                </button>
+                <button 
+                  type="button"
                   class="btn btn-sm btn-outline-danger delete-btn" 
                   data-id="<%= product.id %>" 
-                  title="Eliminar"
-                >
+                  title="Eliminar">
                   <i class="fas fa-trash-alt"></i>
-                </boton>
+                </button>
               </td>
             </tr>
           <% }); %>
         </tbody>
       </table>
     </div>
+  
+    <% if (totalPages > 1) { %>
+      <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+
+          <% if (currentPage > 1) { %>
+            <li class="page-item">
+              <a class="page-link" href="?page=<%= currentPage - 1 %>">&laquo; Anterior</a>
+            </li>
+          <% } %>
+
+          <% for (let i = 1; i <= totalPages; i++) { %>
+            <li class="page-item <%= currentPage === i ? 'active' : '' %>">
+              <a class="page-link" href="?page=<%= i %>"><%= i %></a>
+            </li>
+          <% } %>
+
+          <% if (currentPage < totalPages) { %>
+            <li class="page-item">
+              <a class="page-link" href="?page=<%= currentPage + 1 %>">Siguiente &raquo;</a>
+            </li>
+          <% } %>
+
+        </ul>
+      </nav>
+    <% } %>
 
   </main>
 
@@ -74,8 +100,9 @@
 
 </body>
 <script>
-const botonesToggle = document.querySelectorAll('.toggle-btn');
-const botonesEliminar = document.querySelectorAll('.delete-btn');
+  const botonesToggle = document.querySelectorAll('.toggle-btn');
+  const botonesEliminar = document.querySelectorAll('.delete-btn');
+
   botonesToggle.forEach(boton => {
     boton.addEventListener('click', async (e) => {
       e.preventDefault();
@@ -93,13 +120,11 @@ const botonesEliminar = document.querySelectorAll('.delete-btn');
         if (response.ok) {
           const productoActualizado = await response.json();
 
-          // Actualizar badge
           if (productoActualizado.activo) {
             badge.classList.remove('bg-secondary');
             badge.classList.add('bg-success');
             badge.textContent = 'Activo';
 
-            // Cambiar botón para desactivar
             boton.title = 'Desactivar';
             boton.querySelector('i').className = 'fas fa-times';
             boton.classList.remove('btn-outline-success');
@@ -109,7 +134,6 @@ const botonesEliminar = document.querySelectorAll('.delete-btn');
             badge.classList.add('bg-secondary');
             badge.textContent = 'Inactivo';
 
-            // Cambiar botón para activar
             boton.title = 'Activar';
             boton.querySelector('i').className = 'fas fa-check';
             boton.classList.remove('btn-outline-secondary');
@@ -126,13 +150,12 @@ const botonesEliminar = document.querySelectorAll('.delete-btn');
     });
   });
 
-botonesEliminar.forEach(boton => {
+  botonesEliminar.forEach(boton => {
     boton.addEventListener('click', async (e) => {
       e.preventDefault();
 
       const productoId = boton.dataset.id;
       const tr = boton.closest('tr');
-
 
       try {
         const response = await fetch(`/api/products/${productoId}`, {
@@ -141,7 +164,6 @@ botonesEliminar.forEach(boton => {
 
         if (!response.ok) throw new Error('Error en el servidor');
 
-        // Eliminar fila de la tabla
         tr.remove();
         alert('Producto eliminado correctamente.');
       } catch (error) {
@@ -150,6 +172,5 @@ botonesEliminar.forEach(boton => {
       }
     });
   });
-
 </script>
 </html>

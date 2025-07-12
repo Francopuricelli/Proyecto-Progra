@@ -24,21 +24,31 @@ router.get('/admin-create', async (req, res) => {
   }
 });
 
-
 router.get("/admin-login", (req, res) =>{
   res.render("admin-login")
 })
-router.get("/index", async (req, res) =>{
-    try {
-        const products = await ProductDao.getAll();
-        res.render("index", { products });
-    } catch (error) {
-        console.error(error);
-        res.status(500).send('Error interno del servidor');
-    }
-})
-router.get("/admin-create", (req, res) =>{
-  res.render("admin-create")
-})
+
+router.get("/index", async (req, res) => {
+  try {
+    const limit = 10;
+    const page = parseInt(req.query.page) ;
+    const offset = (page - 1) * limit;
+
+    const { rows: products, count } = await ProductDao.getAllByPageWithCount(limit, offset); 
+
+    const totalPages = Math.ceil(count / limit);
+
+    res.render("index", {
+      products,
+      currentPage: page,
+      totalPages
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error interno del servidor");
+  }
+});
+
+
 
 export default router;
