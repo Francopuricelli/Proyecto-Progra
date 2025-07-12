@@ -31,7 +31,7 @@ router.get("/admin-login", (req, res) =>{
 router.get("/index", async (req, res) => {
   try {
     const limit = 10;
-    const page = parseInt(req.query.page) ;
+    const page = parseInt(req.query.page) || 1;
     const offset = (page - 1) * limit;
 
     const { rows: products, count } = await ProductDao.getAllByPageWithCount(limit, offset); 
